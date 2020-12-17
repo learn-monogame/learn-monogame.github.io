@@ -1,4 +1,4 @@
-# learn-monogame
+# Learn MonoGame
 
 Tutorials to learn MonoGame from scratch.
 
