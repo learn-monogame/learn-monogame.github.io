@@ -9,8 +9,8 @@ on:
 env:
   TITLE: Learn MonoGame
   DESCRIPTION: Tutorials to learn MonoGame from scratch.
-  BASE: learn-monogame
-  REPO: https://github.com/Apostolique/learn-monogame/tree/main/
+  BASE: ~
+  REPO: https://github.com/learn-monogame/learn-monogame.github.io/tree/main/
 
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
       run: npm install apos-docs -g
     - name: Use apos-docs
       run: |
-        apos-docs -t '${{ env.TITLE }}' -d '${{ env.DESCRIPTION }}' -b ${{ env.BASE }} -r ${{ env.REPO }}
+        apos-docs -t '${{ env.TITLE }}' -d '${{ env.DESCRIPTION }}' -b '${{ env.BASE }}' -r ${{ env.REPO }}
         cd apos-docs
         npm i
         npm run build
