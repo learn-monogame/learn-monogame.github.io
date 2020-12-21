@@ -3,23 +3,19 @@
 ## Install
 
 1. Get the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download).
-
    * Test that dotnet is installed correctly:
-
-```
-dotnet --version
-```
-
+    ```
+    dotnet --version
+    ```
 2. Get the MonoGame templates:
-```
-dotnet new --install MonoGame.Templates.CSharp
-```
-
+    ```
+    dotnet new --install MonoGame.Templates.CSharp
+    ```
 3. Get the MonoGame Content Pipeline:
-```
-dotnet tool install --global dotnet-mgcb-editor
-mgcb-editor --register
-```
+    ```
+    dotnet tool install --global dotnet-mgcb-editor
+    mgcb-editor --register
+    ```
 
 ## Create a new game
 
