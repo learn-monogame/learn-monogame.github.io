@@ -36,9 +36,9 @@ dotnet run
 You can publish on Windows, Mac, and Linux using:
 
 ```
-dotnet publish -r win-x64 -c Release
-dotnet publish -r osx-x64 -c Release
-dotnet publish -r linux-x64 -c Release
+dotnet publish -c Release -r win-x64
+dotnet publish -c Release -r osx-x64
+dotnet publish -c Release -r linux-x64
 ```
 
 You'll find the output in:
