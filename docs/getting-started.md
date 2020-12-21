@@ -44,9 +44,9 @@ dotnet publish -c Release -r linux-x64
 You'll find the output in:
 
 ```
-bin/Release/netcoreapp3.1/win-x64/publish
-bin/Release/netcoreapp3.1/osx-x64/publish
-bin/Release/netcoreapp3.1/linux-x64/publish
+bin/Release/netcoreapp3.1/win-x64/publish/
+bin/Release/netcoreapp3.1/osx-x64/publish/
+bin/Release/netcoreapp3.1/linux-x64/publish/
 ```
 
 ## Read more
