@@ -181,3 +181,9 @@ env:
   ITCH_GAME: ${{ env.ITCH_GAME_NAME }}
   ITCH_USER: ${{ env.ITCH_USER_NAME }}
 ```
+
+## Read more
+
+Read more about Butler: <https://itch.io/docs/butler/>.
+
+Read more about GitHub Actions: <https://docs.github.com/en/free-pro-team@latest/actions>.
