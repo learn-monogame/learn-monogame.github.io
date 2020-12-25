@@ -63,8 +63,6 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
           run: dotnet publish ${{ env.PROJECT_PATH }} -r osx-x64 -c Release --output build-osx
         - name: Build Linux
           run: dotnet publish ${{ env.PROJECT_PATH }} -r linux-x64 -c Release --output build-linux
-        - name: Clean NetCoreBeauty
-          run: find . -name 'NetCoreBeauty' -type f -delete
         - name: Publish Windows build to itch.io
           uses: josephbmanley/butler-publish-itchio-action@master
           env:
@@ -159,15 +157,6 @@ Run the publish commands to get builds for each desktop platforms using the BUIL
 run: dotnet publish ${{ env.BUILD_PATH }} -r win-x64 -c Release --output build-windows
 run: dotnet publish ${{ env.BUILD_PATH }} -r osx-x64 -c Release --output build-osx
 run: dotnet publish ${{ env.BUILD_PATH }} -r linux-x64 -c Release --output build-linux
-```
-
----
-
-This step is optional. [NetCoreBeauty](https://github.com/nulastudio/NetCoreBeauty) is useful to cleanup the build folder. By default .NET Core generates a lot of other files in the same directory as the main game binary which can look messy. Unfortunately, NetCoreBeauty can leave a `NetCoreBeauty` file behind. The command below gets rid of it. If you don't use NetCoreBeauty, you can skip this step.
-
-```yml
-- name: Clean NetCoreBeauty
-  run: find . -name 'NetCoreBeauty' -type f -delete
 ```
 
 ---
