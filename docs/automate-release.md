@@ -1,6 +1,6 @@
-# itch.io Release
+# Automate Release
 
-itch.io is an open marketplace for independent digital creators with a focus on independent video games.
+In this article, we'll automate the release builds from a GitHub repository to an itch.io page. itch.io is an open marketplace for independent digital creators with a focus on independent video games.
 
 Before you start, make sure you have an account on both [GitHub](https://github.com/join) and [itch.io](https://itch.io/register). Also make sure you have a GitHub repository with your MonoGame project along with a project page on itch.io.
 
@@ -96,7 +96,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
 
 ## Trigger a release
 
-With all that in place, you can do a release using the following git command:
+With all that in place, you can do a release using the following git commands:
 
 ```
 git tag v1
