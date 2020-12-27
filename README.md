@@ -2,7 +2,7 @@
 
 Tutorials to learn MonoGame from scratch.
 
-[Read the site.](https://learn-monogame.github.io/)
+To get started, read the [Getting Started](https://learn-monogame.github.io/getting-started/) page.
 
 ## Discussions
 
