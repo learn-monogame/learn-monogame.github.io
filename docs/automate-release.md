@@ -45,6 +45,10 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
           uses: actions/setup-dotnet@v1
           with:
             dotnet-version: 3.1.101
+        - name: Get version from tag
+          run: |
+            TAGVERSION=$(git describe --tags --abbrev=0)
+            echo "TAGVERSION=${TAGVERSION:1}" >> $GITHUB_ENV
         - name: Setup Wine
           run: |
             sudo dpkg --add-architecture i386
@@ -71,6 +75,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             ITCH_GAME: ${{ env.ITCH_GAME_NAME }}
             ITCH_USER: ${{ env.ITCH_USER_NAME }}
             PACKAGE: build-windows
+            VERSION: ${{ env.TAGVERSION }}
         - name: Publish OSX build to itch.io
           uses: josephbmanley/butler-publish-itchio-action@master
           env:
@@ -79,6 +84,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             ITCH_GAME: ${{ env.ITCH_GAME_NAME }}
             ITCH_USER: ${{ env.ITCH_USER_NAME }}
             PACKAGE: build-osx
+            VERSION: ${{ env.TAGVERSION }}
         - name: Publish Linux build to itch.io
           uses: josephbmanley/butler-publish-itchio-action@master
           env:
@@ -87,6 +93,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             ITCH_GAME: ${{ env.ITCH_GAME_NAME }}
             ITCH_USER: ${{ env.ITCH_USER_NAME }}
             PACKAGE: build-linux
+            VERSION: ${{ env.TAGVERSION }}
     ```
 10. Replace line 9 to 11 with your own information.
 
@@ -103,7 +110,7 @@ git tag v1
 git push origin --tags
 ```
 
-Increasing `v1` for each release. `v1`, `v2`, `v3`, etc.
+Increasing `v1` for each release. `v1`, `v2`, `v3`, etc. You can also use [Semantic Versioning](https://semver.org/) if you want.
 
 ## Explanation
 
@@ -125,6 +132,15 @@ env:
   ITCH_GAME_NAME: BinaryInput
   ITCH_USER_NAME: apos
   BUILD_PATH: Platforms/DesktopGL
+```
+
+---
+
+Grabs the git tag, removes the `v` prefix and saves it as a GitHub Action environment variable.
+
+```yml
+TAGVERSION=$(git describe --tags --abbrev=0)
+echo "TAGVERSION=${TAGVERSION:1}" >> $GITHUB_ENV
 ```
 
 ---
@@ -169,6 +185,7 @@ env:
   BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
   ITCH_GAME: ${{ env.ITCH_GAME_NAME }}
   ITCH_USER: ${{ env.ITCH_USER_NAME }}
+  VERSION: ${{ env.TAGVERSION }}
 ```
 
 ## Read more
