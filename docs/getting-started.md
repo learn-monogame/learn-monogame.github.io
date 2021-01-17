@@ -19,7 +19,7 @@
 
 ## Create a new game
 
-Replace MyGame with your game's name in the follow command:
+Replace `MyGame` with your game's name in the follow command:
 
 ```
 dotnet new mgdesktopgl -o MyGame
