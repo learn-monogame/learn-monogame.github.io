@@ -4,3 +4,4 @@
 
 * [Get started](./get-started.md)
 * [Automate release](./automate-release.md)
+* [Fullscreen mode](./fullscreen.md)

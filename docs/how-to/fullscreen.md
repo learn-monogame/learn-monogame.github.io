@@ -1,4 +1,4 @@
-# Fullscreen toggle
+# Fullscreen mode
 
 This guide is a follow up to [Get started](./get-started.md).
 
