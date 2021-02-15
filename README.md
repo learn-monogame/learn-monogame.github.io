@@ -4,6 +4,8 @@ Documentation to learn MonoGame from scratch.
 
 To get started, read the [Get started](https://learn-monogame.github.io/how-to/get-started/) guide.
 
+* [How-to guides](https://learn-monogame.github.io/how-to/)
+
 ## Discussions
 
 Feel free to leave feedback or request subjects to cover in the [Discussions](https://github.com/learn-monogame/learn-monogame.github.io/discussions) board.
