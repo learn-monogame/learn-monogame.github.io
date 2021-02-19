@@ -23,14 +23,14 @@ public void ToggleBorderless(GraphicsDeviceManager graphics, GameWindow window) 
     _isBorderless = !_isBorderless;
 
     if (_isFullscreen) {
-        SetBorderless(graphics);
+        ApplyHardwareMode(graphics);
     } else {
         _isFullscreen = true;
         SetFullscreen(graphics, window);
     }
 }
 
-public void SetBorderless(GraphicsDeviceManager graphics) {
+public void ApplyHardwareMode(GraphicsDeviceManager graphics) {
     graphics.HardwareModeSwitch = !_isBorderless;
     graphics.ApplyChanges();
 }
@@ -76,7 +76,7 @@ int _height = 0;
 Borderless mode happens when the hardware mode switch is set to false. This method is called when the game is already in fullscreen.
 
 ```csharp
-public void SetBorderless(GraphicsDeviceManager graphics) {
+public void ApplyHardwareMode(GraphicsDeviceManager graphics) {
     graphics.HardwareModeSwitch = !_isBorderless;
     graphics.ApplyChanges();
 }
@@ -138,7 +138,7 @@ public void ToggleBorderless(GraphicsDeviceManager graphics, GameWindow window) 
     _isBorderless = !_isBorderless;
 
     if (_isFullscreen) {
-        SetBorderless(graphics);
+        ApplyHardwareMode(graphics);
     } else {
         _isFullscreen = true;
         SetFullscreen(graphics, window);
