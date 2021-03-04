@@ -73,7 +73,6 @@ The pipeline will look like this:
 If you open `Content.mgcb` as a text file, this is the content you will see:
 
 ```
-
 #----------------------------- Global Properties ----------------------------#
 
 /outputDir:bin/$(Platform)
