@@ -93,7 +93,7 @@ If you open `Content.mgcb` as a text file, this is the content you will see:
 /processorParam:DebugMode=Auto
 /build:starting-shader.fx
 
-#begin test.png
+#begin image.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -103,7 +103,7 @@ If you open `Content.mgcb` as a text file, this is the content you will see:
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:test.png
+/build:image.png
 ```
 
 ### Load the assets in the game
