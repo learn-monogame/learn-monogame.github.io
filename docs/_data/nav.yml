@@ -9,6 +9,11 @@ links:
         url: /how-to/automate-release/
       - title: Fullscreen mode
         url: /how-to/fullscreen/
+  - title: Tutorials
+    url: /tutorial/
+    links:
+      - title: Starting shader
+        url: /tutorial/starting-shader/
 
 social:
   - title: GitHub
