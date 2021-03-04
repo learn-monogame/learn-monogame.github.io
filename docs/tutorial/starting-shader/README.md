@@ -168,7 +168,7 @@ If you run the game with `dotnet run`, you should see this window:
 
 ![MyGame window](./game.png)
 
-This is all the setup that you need for this tutorial. In the next parts, I will do a breakdown of the code above explanation everything that is going on.
+This is all the setup that you need for this tutorial. In the next parts, I will do a breakdown of the code above explaining everything that is going on.
 
 ### Final Game1.cs
 
