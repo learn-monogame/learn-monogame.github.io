@@ -6,7 +6,9 @@ This tutorial builds on top of [Get started](../../how-to/get-started.md).
 
 The first part of this tutorial will walk your through the project setup without explaining much. Once the project is setup and you can run it, you'll be walked through line by line to understand how everything works under the hood.
 
-## Setup the assets
+## Project setup
+
+### Assets
 
 Add the following image to the `Content` folder and call it `image.png`:
 
@@ -58,7 +60,7 @@ technique SpriteBatch {
 }
 ```
 
-## Add the assets to the content pipeline
+### Content pipeline
 
 Open `Content.mgcb` using the MonoGame Content Builder Editor interface. (Read [Get started](../../how-to/get-started.md) to learn how to get it.) Add both to the content pipeline editor as an existing item:
 
@@ -105,7 +107,7 @@ If you open `Content.mgcb` as a text file, this is the content you will see:
 /build:test.png
 ```
 
-## Load the assets in the game
+### Load the assets in the game
 
 In your `Game1.cs` file, add the fields to hold your assets below the SpriteBatch field:
 
@@ -139,7 +141,7 @@ protected override void LoadContent() {
 }
 ```
 
-## Use the assets
+### Use the assets
 
 In the `Draw` method, add the follow code:
 
@@ -169,7 +171,7 @@ If you run the game with `dotnet run`, you should see this window:
 
 This is all the setup that you need for this tutorial. In the next parts, I will do a breakdown of the code above explanation everything that is going on.
 
-## Final Game1.cs code
+### Final Game1.cs
 
 ```csharp
 using Microsoft.Xna.Framework;
