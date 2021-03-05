@@ -4,7 +4,7 @@ In order to understand shaders from the ground up, I like to start from the most
 
 This tutorial builds on top of [Get started](../../how-to/get-started.md).
 
-The first part of this tutorial will walk your through the project setup without explaining much. Once the project is setup and you can run it, you'll be walked through line by line to understand how everything works under the hood.
+The first part of this tutorial will walk you through the project setup without explaining much. Once the project is setup and you can run it, you'll be walked through it line by line to understand how everything works under the hood.
 
 ## Project setup
 
