@@ -142,7 +142,7 @@ protected override void LoadContent() {
 
 ### Use the assets
 
-In the `Draw` method, add the follow code:
+In the `Draw` method, add the following code:
 
 ```csharp
 protected override void Draw(GameTime gameTime) {
