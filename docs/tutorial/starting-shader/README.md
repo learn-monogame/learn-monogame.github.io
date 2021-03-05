@@ -12,7 +12,7 @@ The first part of this tutorial will walk you through the project setup without 
 
 Add the following image to the `Content` folder and call it `image.png`:
 
-![Test Image](./test.png)
+![An image that will be drawn to the screen.](./image.png)
 
 Next to it, create a text file called `starting-shader.fx`. Add the following text to it:
 
