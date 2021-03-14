@@ -1,5 +1,7 @@
 # Get started
 
+This guide will give you the steps to install MonoGame, get a basic project setup, and build an output that you can publish.
+
 ## Install
 
 1. Get the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download).
