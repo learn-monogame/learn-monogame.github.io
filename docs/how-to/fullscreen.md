@@ -1,5 +1,7 @@
 # Fullscreen mode
 
+This guide will give you the code in order to switch between window, borderless and fullscreen modes.
+
 This guide is a follow up to [Get started](./get-started.md).
 
 Here is some code that can toggle your game's fullscreen mode with borderless as an option.
