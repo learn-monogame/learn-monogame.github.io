@@ -1,4 +1,4 @@
-# Starting shader
+# First shader
 
 In order to understand shaders from the ground up, I like to start from the most basic setup. In this tutorial, you'll learn how to write your own shader to draw a texture to the screen.
 
@@ -14,7 +14,7 @@ Add the following image to the `Content` folder and call it `image.png`:
 
 ![An image that will be drawn to the screen.](./image.png)
 
-Next to it, create a text file called `starting-shader.fx`. Add the following text to it:
+Next to it, create a text file called `first-shader.fx`. Add the following text to it:
 
 ```hlsl
 #if OPENGL
@@ -87,11 +87,11 @@ If you open `Content.mgcb` as a text file, this is the content you will see:
 
 #---------------------------------- Content ---------------------------------#
 
-#begin starting-shader.fx
+#begin first-shader.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
-/build:starting-shader.fx
+/build:first-shader.fx
 
 #begin image.png
 /importer:TextureImporter
@@ -115,7 +115,7 @@ private GraphicsDeviceManager _graphics;
 private SpriteBatch _spriteBatch;
 
 private Texture2D _image;
-private Effect _startingShader;
+private Effect _firstShader;
 ```
 
 In the game's constructor, set the `GraphicsProfile` to `HiDef` (this makes it possible to use shader model 4.0 in WindowsDX builds):
@@ -136,7 +136,7 @@ protected override void LoadContent() {
     _spriteBatch = new SpriteBatch(GraphicsDevice);
 
     _image = Content.Load<Texture2D>("test");
-    _startingShader = Content.Load<Effect>("starting-shader");
+    _firstShader = Content.Load<Effect>("first-shader");
 }
 ```
 
@@ -154,9 +154,9 @@ protected override void Draw(GameTime gameTime) {
     int height = GraphicsDevice.Viewport.Height;
     Matrix projection = Matrix.CreateOrthographicOffCenter(0, width, height, 0, 0, 1);
 
-    _startingShader.Parameters["view_projection"].SetValue(view * projection);
+    _firstShader.Parameters["view_projection"].SetValue(view * projection);
 
-    _spriteBatch.Begin(effect: _startingShader);
+    _spriteBatch.Begin(effect: _firstShader);
     _spriteBatch.Draw(_image, new Vector2(0, 0), Color.White);
     _spriteBatch.End();
 
@@ -183,7 +183,7 @@ namespace MyGame {
         private SpriteBatch _spriteBatch;
 
         private Texture2D _image;
-        private Effect _startingShader;
+        private Effect _firstShader;
 
         public Game1() {
             _graphics = new GraphicsDeviceManager(this);
@@ -199,7 +199,7 @@ namespace MyGame {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _image = Content.Load<Texture2D>("image");
-            _startingShader = Content.Load<Effect>("starting-shader");
+            _firstShader = Content.Load<Effect>("first-shader");
         }
 
         protected override void Update(GameTime gameTime) {
@@ -218,9 +218,9 @@ namespace MyGame {
             int height = GraphicsDevice.Viewport.Height;
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, width, height, 0, 0, 1);
 
-            _startingShader.Parameters["view_projection"].SetValue(view * projection);
+            _firstShader.Parameters["view_projection"].SetValue(view * projection);
 
-            _spriteBatch.Begin(effect: _startingShader);
+            _spriteBatch.Begin(effect: _firstShader);
             _spriteBatch.Draw(_image, new Vector2(0, 0), Color.White);
             _spriteBatch.End();
 
@@ -272,7 +272,7 @@ Console.WriteLine(result);
 ---
 
 ```csharp
-_startingShader.Parameters["view_projection"].SetValue(view * projection);
+_firstShader.Parameters["view_projection"].SetValue(view * projection);
 ```
 
 Pass the view and the projection matrix together to our shader.
@@ -280,7 +280,7 @@ Pass the view and the projection matrix together to our shader.
 ---
 
 ```csharp
-_spriteBatch.Begin(effect: _startingShader);
+_spriteBatch.Begin(effect: _firstShader);
 _spriteBatch.Draw(_image, new Vector2(0, 0), Color.White);
 _spriteBatch.End();
 ```

@@ -12,8 +12,8 @@ links:
   - title: Tutorials
     url: /tutorial/
     links:
-      - title: Starting shader
-        url: /tutorial/starting-shader/
+      - title: First shader
+        url: /tutorial/first-shader/
 
 social:
   - title: GitHub
