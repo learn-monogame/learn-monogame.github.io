@@ -135,7 +135,7 @@ In the `LoadContent` method, load your assets:
 protected override void LoadContent() {
     _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-    _image = Content.Load<Texture2D>("test");
+    _image = Content.Load<Texture2D>("image");
     _firstShader = Content.Load<Effect>("first-shader");
 }
 ```
