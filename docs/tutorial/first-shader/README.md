@@ -285,9 +285,9 @@ _spriteBatch.Draw(_image, new Vector2(0, 0), Color.White);
 _spriteBatch.End();
 ```
 
-Give the shader to the MonoGame SpriteBatch and draw the image at the world position `(0, 0)`. Behind the scene, the SpriteBatch will setup the texture sampler in slot 0 for us.
+Give the shader to the MonoGame SpriteBatch and draw the image texture at the world position `(0, 0)`. Behind the scene, the SpriteBatch will setup the texture sampler in slot 0 for us.
 
-We also pass in a color. For this shader, the color is used as a tint color. White means there is no tint. Colors have their alpha premultiplied which allows you to reduce the image's opacity by doing `Color.White * 0.5f` (Giving you the rgba color `(127, 127, 127, 127)`).
+We also pass in a color. For this shader, the color is used as a tint color. White means there is no tint. Colors have their alpha premultiplied which allows you to reduce the texture's opacity by doing `Color.White * 0.5f` (Giving you the rgba color `(127, 127, 127, 127)`).
 
 ---
 
