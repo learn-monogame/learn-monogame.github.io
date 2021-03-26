@@ -420,3 +420,5 @@ protected override void Draw(GameTime gameTime) {
     base.Draw(gameTime);
 }
 ```
+
+![Final preview showcase](./preview.png)
