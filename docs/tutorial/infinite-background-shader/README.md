@@ -221,22 +221,22 @@ namespace GameProject {
 
         /// <summary>
         /// Poor man's tweening function.
-        /// If the result is stored in the `from` value, it will create a nice interpolation over multiple frames.
+        /// If the result is stored in the value, it will create a nice interpolation over multiple frames.
         /// </summary>
-        /// <param name="from">The value to start from.</param>
+        /// <param name="start">The value to start from.</param>
         /// <param name="target">The value to reach.</param>
         /// <param name="speed">A value between 0f and 1f.</param>
         /// <param name="snapNear">
         /// When the difference between the target and the result is smaller than this value, the target will be returned.
         /// </param>
         /// <returns></returns>
-        private float InterpolateTowardsTarget(float from, float target, float speed, float snapNear) {
-            float result = MathHelper.Lerp(from, target, speed);
+        private float InterpolateTowardsTarget(float start, float target, float speed, float snapNear) {
+            float result = MathHelper.Lerp(start, target, speed);
 
-            if (from < target) {
-                result = MathHelper.Clamp(result, from, target);
+            if (start < target) {
+                result = MathHelper.Clamp(result, start, target);
             } else {
-                result = MathHelper.Clamp(result, target, from);
+                result = MathHelper.Clamp(result, target, start);
             }
 
             if (MathF.Abs(target - result) < snapNear) {
@@ -421,4 +421,4 @@ protected override void Draw(GameTime gameTime) {
 }
 ```
 
-![Final preview showcase](./preview.png)
+![Final showcase](./showcase.png)
