@@ -7,9 +7,9 @@ The first part of this tutorial will walk you through the project setup without 
 
 ## Project setup
 
-The completed project can be found here: <https://github.com/learn-monogame/infinite-background-shader>.
+The completed project can be found [here](https://github.com/learn-monogame/infinite-background-shader).
 
-### Import Apos.Input
+### Apos.Input
 
 Since this tutorial focuses on the shader and camera code only, it will rely on my input library. It is called [Apos.Input](https://apostolique.github.io/Apos.Input/). To add it to your project, use the following command:
 
@@ -34,9 +34,9 @@ Next to it, create a text file called `infinite.fx`. Add the following text to i
 #define PS_SHADERMODEL ps_4_0
 #endif
 
-sampler TextureSampler : register(s0);
 float4x4 view_projection;
 float4x4 uv_transform;
+sampler TextureSampler : register(s0);
 
 struct VertexInput {
     float4 Position : POSITION0;
@@ -229,7 +229,6 @@ namespace GameProject {
         /// <param name="snapNear">
         /// When the difference between the target and the result is smaller than this value, the target will be returned.
         /// </param>
-        /// <returns></returns>
         private float InterpolateTowardsTarget(float start, float target, float speed, float snapNear) {
             float result = MathHelper.Lerp(start, target, speed);
 
@@ -315,6 +314,8 @@ namespace GameProject {
 
 In [First shader](../first-shader/README.md), the UV coordinate system got briefly mentioned. It's a 2D value that ranges between 0 and 1 and covers the whole range of the texture. For a texture that is 200x300 pixels, if you sample it at `(0.5, 0.5)` in UV coordinates, that gives you the position `(100, 150)`.
 
+---
+
 By default in MonoGame, texture sampling is done using the `LinearClamp` mode which limits the sampling to the inside of the texture. In order to have an infinite background, we will use a different sampling mode called `LinearWrap`. This mode wraps around when you sample below 0 or above 1 in UV coordinates.
 
 You can set LinearWrap in the SpriteBatch's begin function:
@@ -323,7 +324,9 @@ You can set LinearWrap in the SpriteBatch's begin function:
 _s.Begin(samplerState: SamplerState.LinearWrap);
 ```
 
-In the last tutorial, we were drawing the texture in world coordinates and bringing the coordinates back into the homogeneous coordinate system using matrix math. This time, we'll do something different, we'll draw a rectangle that covers the whole viewport, transform that into homogenous coordinates.
+---
+
+In the last tutorial, we were drawing the texture in world coordinates and bringing the coordinates back into the homogeneous coordinate system using matrix math. This time, we'll do something different, we'll draw a rectangle that covers the whole viewport and transform that into homogenous coordinates.
 
 ```csharp
 _s.Draw(_background, GraphicsDevice.Viewport.Bounds, Color.White);
@@ -341,6 +344,8 @@ Matrix projection = Matrix.CreateOrthographicOffCenter(0, width, height, 0, 0, 1
 With this in place, if you used the first shader from the previous tutorial and passed the projection matrix to it, you'd see the background texture stretched to cover the whole window.
 
 ![Stretched background](./stretched-background.png)
+
+---
 
 To tile the background infinitely, we have to take the background's UVs, multiply them by the background's dimensions so that it ends up in world coordinates at (0, 0), transform them by the view matrix for the camera and then divide that by the viewport rectangle's dimensions to bring it all into the viewport's UV coordinates. Here is how to build a matrix that will do all that:
 
@@ -385,9 +390,11 @@ private Matrix GetUVTransform(Texture2D t, Vector2 offset, float scale, Viewport
 }
 ```
 
-On the shader side, we modify the code from the first shader to handle the UV transform matrix:
+---
 
-```hsls
+On the shader side, we modify the code from the first shader to use the UV transform matrix:
+
+```hlsl
 PixelInput SpriteVertexShader(VertexInput v) {
     PixelInput output;
 
@@ -421,4 +428,38 @@ protected override void Draw(GameTime gameTime) {
 }
 ```
 
+You will see the final result:
+
 ![Final showcase](./showcase.png)
+
+---
+
+In the final Game1.cs, I have added some extra functions to control the camera. You can click and drag to move the camera around. You can zoom in and out using the mouse scroll wheel. You can also rotate the screen using comma `,` and dot `.`.
+
+---
+
+As a bonus, you can uncomment the following lines in the shader:
+
+```hlsl
+// if (p.TexCoord.x < 0 || p.TexCoord.x > 1) {
+//     discard;
+// }
+```
+
+```hlsl
+// if (p.TexCoord.y < 0 || p.TexCoord.y > 1) {
+//     discard;
+// }
+```
+
+Those lines will prevent the background from repeating along the X or Y axes. If you uncomment both blocks, the background will not repeat at all.
+
+You could allow 2 columns to repeat using:
+
+```hlsl
+if (p.TexCoord.x < 0 || p.TexCoord.x > 2) {
+    discard;
+}
+```
+
+Feel free to experiment with the code and have some fun!
