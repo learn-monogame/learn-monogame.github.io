@@ -454,6 +454,9 @@ As a bonus, you can uncomment the following lines in the shader:
 
 Those lines will prevent the background from repeating along the X or Y axes. If you uncomment both blocks, the background will not repeat at all.
 
+![Horizontal Repeat](./horizontal-repeat.png)
+![Vertical Repeat](./vertical-repeat.png)
+
 You could allow 2 columns to repeat using:
 
 ```hlsl
