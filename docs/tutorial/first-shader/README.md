@@ -395,3 +395,7 @@ technique SpriteBatch {
 The technique exposes the Vertex and Pixel shaders. These lines work on the DesktopGL and WindowsDX platforms thanks to the defines from earlier.
 
 It's possible for a technique to have multiple passes.
+
+---
+
+A follow up tutorial can be read here: [Infinite background shader](../infinite-background-shader/README.md)
