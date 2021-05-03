@@ -16,6 +16,8 @@ links:
         url: /tutorial/first-shader/
       - title: Infinite background shader
         url: /tutorial/infinite-background-shader/
+  - title: External links
+    url: /external/
 
 social:
   - title: GitHub
