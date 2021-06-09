@@ -107,10 +107,17 @@ With all that in place, you can do a release using the following git commands:
 
 ```
 git tag v1
-git push origin --tags
+git push origin tag v1
 ```
 
 Increasing `v1` for each release. `v1`, `v2`, `v3`, etc. You can also use [Semantic Versioning](https://semver.org/) if you want.
+
+If you make a mistake, or the pipeline fails for some reason you can delete the tag with:
+
+```
+git tag --delete v1
+git push origin tag --delete v1
+```
 
 ## Explanation
 
