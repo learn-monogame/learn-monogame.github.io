@@ -5,3 +5,4 @@
 * [Get started](./get-started.md)
 * [Automate release](./automate-release.md)
 * [Fullscreen mode](./fullscreen.md)
+* [Install a development MonoGame build](./install-develop.md)
