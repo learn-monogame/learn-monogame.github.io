@@ -13,7 +13,21 @@ Each time a new commit makes it into the [MonoGame development branch](https://g
    dotnet add package MonoGame.Framework.DesktopGL --prerelease
    dotnet add package MonoGame.Content.Builder.Task --prerelease
    ```
+3. To install the MonoGame Content Builder Editor:
+   ```
+   dotnet tool update --global dotnet-mgcb-editor --version *-*
+   mgcb-editor --register
+   ```
 
-You can repeat step 2 whenever you want to want to update.
+You can repeat step 2 and 3 whenever you want to want to update.
 
 Note that sometimes teamcity is down. When that happens the commands can fail.
+
+You can also install a specific version:
+
+```
+dotnet add package MonoGame.Framework.DesktopGL --version 3.8.1.1983-develop
+dotnet add package MonoGame.Content.Builder.Task --version 3.8.1.1983-develop
+dotnet tool update --global dotnet-mgcb-editor --version 3.8.1.1983-develop
+mgcb-editor --register
+```
