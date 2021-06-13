@@ -9,6 +9,8 @@ links:
         url: /how-to/automate-release/
       - title: Fullscreen mode
         url: /how-to/fullscreen/
+      - title: Install a development MonoGame build
+        url: /how-to/install-develop/
   - title: Tutorials
     url: /tutorial/
     links:
