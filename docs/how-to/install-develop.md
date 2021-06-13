@@ -2,7 +2,7 @@
 
 Do you want to build your game with MonoGame's latest and greatest develop branch? You don't need to wait for official MonoGame releases.
 
-Each time a new commit makes it into the MonoGame development branch, new builds are automatically released to the [MonoGame TeamCity](http://teamcity.monogame.net/viewType.html?buildTypeId=MonoGame_DevelopWin&branch_MonoGame=%3Cdefault%3E&tab=buildTypeStatusDiv&guest=1) site. To install them into a project, you can execute the following commands.
+Each time a new commit makes it into the [MonoGame development branch](https://github.com/MonoGame/MonoGame/commits/develop), new builds are automatically released to the [MonoGame TeamCity](http://teamcity.monogame.net/viewType.html?buildTypeId=MonoGame_DevelopWin&branch_MonoGame=%3Cdefault%3E&tab=buildTypeStatusDiv&guest=1) site. To install them into a project, you can execute the following commands.
 
 1. Add the MonoGame teamcity NuGet feed:
    ```
