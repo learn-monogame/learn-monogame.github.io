@@ -18,6 +18,11 @@ Each time a new commit makes it into the [MonoGame development branch](https://g
    dotnet tool update --global dotnet-mgcb-editor --version *-*
    mgcb-editor --register
    ```
+4. To install the MonoGame templates:
+   ```
+   dotnet new --install MonoGame.Templates.CSharp::*-*
+   ```
+   With that you will be able to use `dotnet new mgdesktopgl -o MyGame`.
 
 You can repeat step 2 and 3 whenever you want to want to update.
 
