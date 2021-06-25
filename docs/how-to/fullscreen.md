@@ -22,9 +22,8 @@ public void ToggleFullscreen(GraphicsDeviceManager graphics, GameWindow window) 
     }
 }
 public void ToggleBorderless(GraphicsDeviceManager graphics, GameWindow window) {
-    _isBorderless = !_isBorderless;
-
     if (_isFullscreen) {
+        _isBorderless = !_isBorderless;
         ApplyHardwareMode(graphics);
     } else {
         _isFullscreen = true;
