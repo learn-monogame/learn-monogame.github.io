@@ -32,11 +32,11 @@ public void ToggleBorderless(GraphicsDeviceManager graphics, GameWindow window) 
     }
 }
 
-public void ApplyHardwareMode(GraphicsDeviceManager graphics) {
+private void ApplyHardwareMode(GraphicsDeviceManager graphics) {
     graphics.HardwareModeSwitch = !_isBorderless;
     graphics.ApplyChanges();
 }
-public void SetFullscreen(GraphicsDeviceManager graphics, GameWindow window) {
+private void SetFullscreen(GraphicsDeviceManager graphics, GameWindow window) {
     _width = Window.ClientBounds.Width;
     _height = Window.ClientBounds.Height;
 
@@ -47,13 +47,15 @@ public void SetFullscreen(GraphicsDeviceManager graphics, GameWindow window) {
     graphics.IsFullScreen = true;
     graphics.ApplyChanges();
 }
-public void UnsetFullscreen(GraphicsDeviceManager graphics) {
+private void UnsetFullscreen(GraphicsDeviceManager graphics) {
     graphics.PreferredBackBufferWidth = _width;
     graphics.PreferredBackBufferHeight = _height;
     graphics.IsFullScreen = false;
     graphics.ApplyChanges();
 }
 ```
+
+To use this, call either `ToggleFullscreen` or `ToggleBorderless`.
 
 ## Explanation
 
