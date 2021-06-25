@@ -24,7 +24,7 @@ Each time a new commit makes it into the [MonoGame development branch](https://g
    ```
    With that you will be able to use `dotnet new mgdesktopgl -o MyGame`.
 
-You can repeat step 2, 3, and 4 whenever you want to want to update.
+You can repeat step 2, 3, and 4 whenever you want to update.
 
 Note that sometimes teamcity is down. When that happens the commands can fail.
 
