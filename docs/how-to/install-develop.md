@@ -37,3 +37,9 @@ dotnet tool update --global dotnet-mgcb-editor --version 3.8.1.1983-develop
 mgcb-editor --register
 dotnet new --install MonoGame.Templates.CSharp::3.8.1.1983-develop
 ```
+
+To remove the teamcity source from step 1, you can do:
+
+```
+dotnet nuget remove source MonoGame
+```
