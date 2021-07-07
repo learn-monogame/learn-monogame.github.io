@@ -134,12 +134,15 @@ namespace GameProject {
     public class Game1 : Game {
         public Game1() {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
             Window.AllowUserResizing = true;
         }
 
         protected override void Initialize() {
+            Window.Title = "Infinite background shader";
+
             base.Initialize();
         }
 
@@ -150,9 +153,6 @@ namespace GameProject {
 
             _background = Content.Load<Texture2D>("background");
             _infinite = Content.Load<Effect>("infinite");
-
-            _targetScale = _maxScale;
-            _scale = _targetScale;
         }
 
         protected override void Update(GameTime gameTime) {
@@ -163,8 +163,8 @@ namespace GameProject {
 
             UpdateCameraInput();
 
-            _scale = InterpolateTowardsTarget(_scale, _targetScale, _speed, _snapDistance);
-            _rotation = InterpolateTowardsTarget(_rotation, _targetRotation, _speed, _snapDistance);
+            _scale = ExpToScale(Interpolate(ScaleToExp(_scale), _targetExp, _speed, _snapDistance));
+            _rotation = Interpolate(_rotation, _targetRotation, _speed, _snapDistance);
 
             InputHelper.UpdateCleanup();
             base.Update(gameTime);
@@ -190,11 +190,9 @@ namespace GameProject {
         }
 
         private void UpdateCameraInput() {
-            int scrollDelta = MouseCondition.ScrollDelta;
-            if (scrollDelta != 0) {
-                _targetScale = MathHelper.Clamp(
-                    LogDistanceToScale(ScaleToLogDistance(_targetScale) - scrollDelta * _scrollToLogDistance)
-                    , _minScale, _maxScale);
+            if (MouseCondition.Scrolled()) {
+                int scrollDelta = MouseCondition.ScrollDelta;
+                _targetExp = MathHelper.Clamp(_targetExp - scrollDelta * _expDistance, _maxExp, _minExp);
             }
 
             if (RotateLeft.Pressed()) {
@@ -229,7 +227,8 @@ namespace GameProject {
         /// <param name="snapNear">
         /// When the difference between the target and the result is smaller than this value, the target will be returned.
         /// </param>
-        private float InterpolateTowardsTarget(float start, float target, float speed, float snapNear) {
+        /// <returns></returns>
+        private float Interpolate(float start, float target, float speed, float snapNear) {
             float result = MathHelper.Lerp(start, target, speed);
 
             if (start < target) {
@@ -266,11 +265,11 @@ namespace GameProject {
                 Matrix.CreateScale(1f / v.Width, 1f / v.Height, 1f);
         }
 
-        private float ScaleToLogDistance(float scale) {
-            return MathF.Log(1f / scale + 1f);
+        private float ScaleToExp(float scale) {
+            return -MathF.Log(scale);
         }
-        private float LogDistanceToScale(float value) {
-            return 1f / (MathF.Exp(value) - 1f);
+        private float ExpToScale(float exp) {
+            return MathF.Exp(-exp);
         }
 
         GraphicsDeviceManager _graphics;
@@ -280,21 +279,21 @@ namespace GameProject {
         Effect _infinite;
 
         Vector2 _xy = new Vector2(0f, 0f);
-        float _scale;
+        float _scale = 1f;
         float _rotation = 0f;
 
-        float _targetScale;
+        float _targetExp = 0f;
         float _targetRotation = 0f;
-        float _speed = 0.1f;
+        float _speed = 0.08f;
         float _snapDistance = 0.001f;
 
         Vector2 _mouseWorld = Vector2.Zero;
         Vector2 _dragAnchor = Vector2.Zero;
         bool _isDragged = false;
 
-        float _scrollToLogDistance = 0.001f;
-        float _minScale = 0.1f;
-        float _maxScale = 1f;
+        float _expDistance = 0.002f;
+        float _maxExp = -2f;
+        float _minExp = 2f;
 
         ICondition _quit =
             new AnyCondition(
