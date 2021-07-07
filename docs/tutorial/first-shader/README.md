@@ -118,7 +118,7 @@ private Texture2D _image;
 private Effect _firstShader;
 ```
 
-In the game's constructor, set the `GraphicsProfile` to `HiDef` (this makes it possible to use shader model 4.0 in WindowsDX builds):
+In the game's constructor, set the `GraphicsProfile` to `HiDef` (this makes it possible to use shader model 4.0 in WindowsDX builds, without it you'll get a cryptic error that says `The parameter is incorrect.`.):
 
 ```csharp
 public Game1() {
