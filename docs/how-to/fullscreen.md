@@ -11,46 +11,60 @@ bool _isFullscreen = false;
 bool _isBorderless = false;
 int _width = 0;
 int _height = 0;
+GraphicsDeviceManager _graphics;
+GameWindow _window;
 
-public void ToggleFullscreen(GraphicsDeviceManager graphics, GameWindow window) {
-    _isFullScreen = !_isFullScreen;
+public void ToggleFullscreen() {
+    bool oldIsFullscreen = _isFullscreen;
 
-    if (_isFullScreen) {
-        SetFullscreen(graphics, window);
+    if (_isBorderless) {
+        _isBorderless = false;
     } else {
-        UnsetFullscreen(graphics);
+        _isFullscreen = !_isFullscreen;
     }
+
+    ApplyFullscreenChange(oldIsFullscreen);
 }
-public void ToggleBorderless(GraphicsDeviceManager graphics, GameWindow window) {
+public void ToggleBorderless() {
+    bool oldIsFullscreen = _isFullscreen;
+
+    _isBorderless = !_isBorderless;
+    _isFullscreen = _isBorderless;
+
+    ApplyFullscreenChange(oldIsFullscreen);
+}
+
+private void ApplyFullscreenChange(bool oldIsFullscreen) {
     if (_isFullscreen) {
-        _isBorderless = !_isBorderless;
-        ApplyHardwareMode(graphics);
+        if (oldIsFullscreen) {
+            ApplyHardwareMode();
+        } else {
+            SetFullscreen();
+        }
     } else {
-        _isFullscreen = true;
-        SetFullscreen(graphics, window);
+        UnsetFullscreen();
     }
 }
-
-private void ApplyHardwareMode(GraphicsDeviceManager graphics) {
-    graphics.HardwareModeSwitch = !_isBorderless;
-    graphics.ApplyChanges();
+private void ApplyHardwareMode() {
+    _graphics.HardwareModeSwitch = !_isBorderless;
+    _graphics.ApplyChanges();
 }
-private void SetFullscreen(GraphicsDeviceManager graphics, GameWindow window) {
+private void SetFullscreen() {
     _width = Window.ClientBounds.Width;
     _height = Window.ClientBounds.Height;
 
-    graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-    graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-    graphics.HardwareModeSwitch = !_isBorderless;
+    _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+    _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+    _graphics.HardwareModeSwitch = !_isBorderless;
 
-    graphics.IsFullScreen = true;
-    graphics.ApplyChanges();
+    _graphics.IsFullScreen = true;
+    _graphics.ApplyChanges();
 }
-private void UnsetFullscreen(GraphicsDeviceManager graphics) {
-    graphics.PreferredBackBufferWidth = _width;
-    graphics.PreferredBackBufferHeight = _height;
-    graphics.IsFullScreen = false;
-    graphics.ApplyChanges();
+private void UnsetFullscreen() {
+    _graphics.PreferredBackBufferWidth = _width;
+    _graphics.PreferredBackBufferHeight = _height;
+    _graphics.IsFullScreen = false;
+    _graphics.ApplyChanges();
 }
 ```
 
@@ -64,6 +78,12 @@ Track the current fullscreen state. Initialized to false since the game starts i
 bool _isFullscreen = false;
 bool _isBorderless = false;
 ```
+
+Window mode happens when both `_isFullscreen` and `_isBorderless` are false.
+
+Borderless mode happens when both `_isFullscreen` and `_isBorderless` are true.
+
+Fullscreen mode happens when `_isFullscreen` is true and `_isBorderless` is false.
 
 ---
 
@@ -79,9 +99,9 @@ int _height = 0;
 Borderless mode happens when the hardware mode switch is set to false. This method is called when the game is already in fullscreen.
 
 ```csharp
-public void ApplyHardwareMode(GraphicsDeviceManager graphics) {
-    graphics.HardwareModeSwitch = !_isBorderless;
-    graphics.ApplyChanges();
+private void ApplyHardwareMode() {
+    _graphics.HardwareModeSwitch = !_isBorderless;
+    _graphics.ApplyChanges();
 }
 ```
 
@@ -90,16 +110,16 @@ public void ApplyHardwareMode(GraphicsDeviceManager graphics) {
 Going fullscreen we preserve the current window size. Then we apply the size of the monitor that the window is currently in. This method handles the current borderless state.
 
 ```csharp
-public void SetFullscreen(GraphicsDeviceManager graphics, GameWindow window) {
+private void SetFullscreen() {
     _width = Window.ClientBounds.Width;
     _height = Window.ClientBounds.Height;
 
-    graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-    graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-    graphics.HardwareModeSwitch = !_isBorderless;
+    _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+    _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+    _graphics.HardwareModeSwitch = !_isBorderless;
 
-    graphics.IsFullScreen = true;
-    graphics.ApplyChanges();
+    _graphics.IsFullScreen = true;
+    _graphics.ApplyChanges();
 }
 ```
 
@@ -108,43 +128,61 @@ public void SetFullscreen(GraphicsDeviceManager graphics, GameWindow window) {
 To go back to the window mode, we restore the previously saved sizes.
 
 ```csharp
-public void UnsetFullscreen(GraphicsDeviceManager graphics) {
-    graphics.PreferredBackBufferWidth = _width;
-    graphics.PreferredBackBufferHeight = _height;
-    graphics.IsFullScreen = false;
-    graphics.ApplyChanges();
+private void UnsetFullscreen() {
+    _graphics.PreferredBackBufferWidth = _width;
+    _graphics.PreferredBackBufferHeight = _height;
+    _graphics.IsFullScreen = false;
+    _graphics.ApplyChanges();
 }
 ```
 
 ---
 
-Toggling the fullscreen state is a matter of calling the respective methods based on the state we're tracking.
+There are three modes in total: window, borderless, fullscreen. To switch between borderless and fullscreen, it's just a matter of calling `ApplyHardwareMode`. To switch between window and the other two, it's a matter of calling `SetFullscreen` or `UnsetFullscreen`.
 
 ```csharp
-public void ToggleFullscreen(GraphicsDeviceManager graphics, GameWindow window) {
-    _isFullScreen = !_isFullScreen;
-
-    if (_isFullScreen) {
-        SetFullscreen(graphics, window);
-    } else {
-        UnsetFullscreen(graphics);
-    }
-}
-```
-
----
-
-Toggling the borderless mode is a bit trickier. This toggle makes sure that no matter what we're in fullscreen mode. If we're already in fullscreen mode, then it's just a matter of switching the hardware switch.
-
-```csharp
-public void ToggleBorderless(GraphicsDeviceManager graphics, GameWindow window) {
-    _isBorderless = !_isBorderless;
-
+private void ApplyFullscreenChange(bool oldIsFullscreen) {
     if (_isFullscreen) {
-        ApplyHardwareMode(graphics);
+        if (oldIsFullscreen) {
+            ApplyHardwareMode();
+        } else {
+            SetFullscreen();
+        }
     } else {
-        _isFullscreen = true;
-        SetFullscreen(graphics, window);
+        UnsetFullscreen();
     }
+}
+```
+
+---
+
+Toggling the fullscreen mode is a matter of turning off the borderless mode or toggling the fullscreen state.
+
+```csharp
+public void ToggleFullscreen() {
+    bool oldIsFullscreen = _isFullscreen;
+
+    if (_isBorderless) {
+        _isBorderless = false;
+    } else {
+        _isFullscreen = !_isFullscreen;
+    }
+
+    ApplyFullscreenChange(oldIsFullscreen);
+}
+```
+
+---
+
+Toggling the borderless mode is a matter of toggling the borderless state and making the fullscreen state be the same.
+
+```csharp
+public void ToggleBorderless() {
+    bool oldIsFullscreen = _isFullscreen;
+
+    _isBorderless = !_isBorderless;
+    _isFullscreen = _isBorderless;
+
+    ApplyFullscreenChange(oldIsFullscreen);
 }
 ```
