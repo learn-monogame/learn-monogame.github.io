@@ -60,7 +60,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             sudo sh -c 'echo "deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/ ./" > /etc/apt/sources.list.d/obs.list'
             sudo apt update
             sudo apt-get install --install-recommends winehq-stable
-            wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/develop/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
+            wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/master/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
         - name: Build Windows
           run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --output build-windows
         - name: Build Osx
