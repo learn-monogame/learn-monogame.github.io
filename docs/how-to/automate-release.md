@@ -44,7 +44,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
         - name: Setup .NET Core
           uses: actions/setup-dotnet@v1
           with:
-            dotnet-version: 3.1.101
+            dotnet-version: '3.1.x'
         - name: Get version from tag
           run: |
             TAGVERSION=$(git describe --tags --abbrev=0)
