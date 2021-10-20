@@ -9,13 +9,17 @@ The first part of this tutorial will walk you through the project setup without 
 
 The completed project can be found [here](https://github.com/learn-monogame/infinite-background-shader).
 
-### Apos.Input
+### Libraries
 
-Since this tutorial focuses on the shader and camera code only, it will rely on my input library. It is called [Apos.Input](https://apostolique.github.io/Apos.Input/). To add it to your project, use the following command:
+This tutorial relies on the [Apos.Input](https://github.com/Apostolique/Apos.Input) library.
+
+You can install it with the following command:
 
 ```
 dotnet add package Apos.Input
 ```
+
+Apos.Input provides a simplified API over the MonoGame mouse and keyboard API.
 
 ### Assets
 
