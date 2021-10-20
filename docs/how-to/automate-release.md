@@ -62,11 +62,11 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             sudo apt-get install --install-recommends winehq-stable
             wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/master/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
         - name: Build Windows
-          run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --output build-windows
+          run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --output artifacts/windows
         - name: Build Osx
-          run: dotnet publish ${{ env.PROJECT_PATH }} -r osx-x64 -c Release --output build-osx
+          run: dotnet publish ${{ env.PROJECT_PATH }} -r osx-x64 -c Release --output artifacts/osx
         - name: Build Linux
-          run: dotnet publish ${{ env.PROJECT_PATH }} -r linux-x64 -c Release --output build-linux
+          run: dotnet publish ${{ env.PROJECT_PATH }} -r linux-x64 -c Release --output artifacts/linux
         - name: Publish Windows build to itch.io
           uses: josephbmanley/butler-publish-itchio-action@master
           env:
@@ -74,7 +74,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             CHANNEL: windows
             ITCH_GAME: ${{ env.ITCH_GAME_NAME }}
             ITCH_USER: ${{ env.ITCH_USER_NAME }}
-            PACKAGE: build-windows
+            PACKAGE: artifacts/windows
             VERSION: ${{ env.TAGVERSION }}
         - name: Publish OSX build to itch.io
           uses: josephbmanley/butler-publish-itchio-action@master
@@ -83,7 +83,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             CHANNEL: osx
             ITCH_GAME: ${{ env.ITCH_GAME_NAME }}
             ITCH_USER: ${{ env.ITCH_USER_NAME }}
-            PACKAGE: build-osx
+            PACKAGE: artifacts/osx
             VERSION: ${{ env.TAGVERSION }}
         - name: Publish Linux build to itch.io
           uses: josephbmanley/butler-publish-itchio-action@master
@@ -92,7 +92,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             CHANNEL: linux
             ITCH_GAME: ${{ env.ITCH_GAME_NAME }}
             ITCH_USER: ${{ env.ITCH_USER_NAME }}
-            PACKAGE: build-linux
+            PACKAGE: artifacts/linux
             VERSION: ${{ env.TAGVERSION }}
     ```
 10. Replace line 9 to 11 with your own information.
@@ -152,7 +152,7 @@ echo "TAGVERSION=${TAGVERSION:1}" >> $GITHUB_ENV
 
 ---
 
-Setup [Wine](https://www.winehq.org/) for building shaders under Linux. Feel free to remove this if you don't have any shaders to speedup your builds considerably. It will download Wine and configure it using [mgfxc_wine_setup.sh](https://github.com/MonoGame/MonoGame/blob/develop/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh).
+Setup [Wine](https://www.winehq.org/) for building shaders under Linux. Feel free to remove this if you don't have any shaders to speedup your builds considerably. It will download Wine and configure it using [mgfxc_wine_setup.sh](https://github.com/MonoGame/MonoGame/blob/master/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh).
 
 ```yml
 env:
@@ -169,7 +169,7 @@ wget -qO- https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUb
 sudo sh -c 'echo "deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/ ./" > /etc/apt/sources.list.d/obs.list'
 sudo apt update
 sudo apt-get install --install-recommends winehq-stable
-wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/develop/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
+wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/master/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
 ```
 
 ---
@@ -177,9 +177,9 @@ wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/develop/Tools/Mono
 Run the publish commands to get builds for each desktop platforms using the BUILD_PATH environment variable from earlier. You can remove or add the platforms you don't want. Each one gets a custom output folder. This is useful for knowing where the builds will be when it's time to upload to itch.io.
 
 ```yml
-run: dotnet publish ${{ env.BUILD_PATH }} -r win-x64 -c Release --output build-windows
-run: dotnet publish ${{ env.BUILD_PATH }} -r osx-x64 -c Release --output build-osx
-run: dotnet publish ${{ env.BUILD_PATH }} -r linux-x64 -c Release --output build-linux
+run: dotnet publish ${{ env.BUILD_PATH }} -r win-x64 -c Release --output artifacts/windows
+run: dotnet publish ${{ env.BUILD_PATH }} -r osx-x64 -c Release --output artifacts/osx
+run: dotnet publish ${{ env.BUILD_PATH }} -r linux-x64 -c Release --output artifacts/linux
 ```
 
 ---
