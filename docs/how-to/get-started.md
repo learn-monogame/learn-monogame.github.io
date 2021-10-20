@@ -39,18 +39,20 @@ dotnet run
 You can publish on Windows, Mac, and Linux using:
 
 ```
-dotnet publish -c Release -r win-x64
-dotnet publish -c Release -r osx-x64
-dotnet publish -c Release -r linux-x64
+dotnet publish -c Release -r win-x64 --output artifacts/windows
+dotnet publish -c Release -r osx-x64 --output artifacts/osx
+dotnet publish -c Release -r linux-x64 --output artifacts/linux
 ```
 
 You'll find the output in:
 
 ```
-bin/Release/netcoreapp3.1/win-x64/publish/
-bin/Release/netcoreapp3.1/osx-x64/publish/
-bin/Release/netcoreapp3.1/linux-x64/publish/
+artifacts/windows
+artifacts/osx
+artifacts/linux
 ```
+
+You can zip those folders to share your game.
 
 ## Read more
 
