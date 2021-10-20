@@ -170,7 +170,9 @@ If you run the game with `dotnet run`, you should see this window:
 
 This is all the setup that you need for this tutorial. In the next parts, I will do a breakdown of the code above explaining everything that is going on.
 
-### Final Game1.cs
+### Source code
+
+#### Game1.cs
 
 ```csharp
 using Microsoft.Xna.Framework;

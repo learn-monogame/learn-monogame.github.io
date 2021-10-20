@@ -125,7 +125,9 @@ If you open `Content.mgcb` as a text file, this is the content you will see:
 /build:infinite.fx
 ```
 
-### Final Game1.cs
+### Source code
+
+#### Game1.cs
 
 ```csharp
 using System;
