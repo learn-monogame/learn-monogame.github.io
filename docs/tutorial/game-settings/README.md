@@ -350,6 +350,17 @@ public static T EnsureJson<T>(string name) where T : new() {
 
 `EnsureJson` is a combination of both.
 
+---
+
+This options makes sure that the saved json uses camelCase and indents it for human readability.
+
+```csharp
+private static JsonSerializerOptions _options = new JsonSerializerOptions {
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    WriteIndented = true,
+};
+```
+
 ## Read more
 
 Read [How to serialize and deserialize (marshal and unmarshal) JSON in .NET](https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to)
