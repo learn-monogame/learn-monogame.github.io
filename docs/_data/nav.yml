@@ -18,6 +18,8 @@ links:
         url: /tutorial/first-shader/
       - title: Infinite background shader
         url: /tutorial/infinite-background-shader/
+      - title: Persistent game settings
+        url: /tutorial/game-settings/
   - title: External links
     url: /external/
 

@@ -4,3 +4,4 @@
 
 * [First shader](./first-shader/README.md)
 * [Infinite background shader](./infinite-background-shader/README.md)
+* [Persistent game settings](./game-settings/README.md)
