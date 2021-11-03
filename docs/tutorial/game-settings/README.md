@@ -308,7 +308,7 @@ public static string GetPath(string name) => Path.Combine(AppDomain.CurrentDomai
 
 ---
 
-The following functions take a generic parameter `T`. For our use case, it will be the `Settings` class, but this will be reusable. This generic gets fed to [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to) which will serialize and deserialize for us.
+The following functions take a generic parameter `T`. For our use case, it will be the `Settings` class, but this will be reusable. This generic gets fed to [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to) which will serialize and deserialize the data for us.
 
 ```csharp
 public static T LoadJson<T>(string name) where T : new() {
