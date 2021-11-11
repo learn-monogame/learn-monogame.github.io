@@ -186,3 +186,7 @@ public void ToggleBorderless() {
     ApplyFullscreenChange(oldIsFullscreen);
 }
 ```
+
+## Follow up
+
+[Persistent game settings](../tutorial/game-settings/README.md), a follow up tutorial that applies this fullscreen mechanism.
