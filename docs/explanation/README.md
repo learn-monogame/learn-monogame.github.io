@@ -1,5 +1,5 @@
 # Explanation
 
-[Explanation](https://documentation.divio.com/explanation/), or discussions, clarify and illuminate a particular topic. They broaden the documentation's coverage of a topic.
+[Explanation](https://diataxis.fr/explanation/) is discussion that clarifies and illuminates a particular topic. Explanation is understanding-oriented.
 
 There are none right now.
