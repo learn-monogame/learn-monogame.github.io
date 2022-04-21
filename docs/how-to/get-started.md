@@ -65,3 +65,7 @@ Command="$(DotnetCommand) &quot;$(MGCBPath)&quot; $(MonoGameMGCBAdditionalArgume
 ## Read more
 
 You can read more getting started info from the official [MonoGame docs](https://docs.monogame.net/articles/getting_started/0_getting_started.html).
+
+---
+
+Now that you have a project, the next step is to setup a development environment. [Developing with Visual Studio Code](./develop-vscode/README.md).
