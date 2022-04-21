@@ -6,7 +6,7 @@ Visual Studio Code is a text editor. You can use it on many platforms. With the 
 
 Before you start, make sure to [download vscode](https://code.visualstudio.com/download) and install it. Follow [Get started](../get-started.md) to get a basic project going.
 
-You can open the game's directory in vscode. You can do that by dragging the directory directly over vscode. You should see something like this in the Explorer (Ctrl + Shift + E):
+Open the game's directory in vscode. You can do that by dragging the directory directly over vscode. You should see something like this in the Explorer (Ctrl + Shift + E):
 
 ![MyGame directory](MyGame-01.png)
 
