@@ -97,7 +97,7 @@ MyGame.csproj
 Program.cs
 ```
 
-# Read more
+## Read more
 
 * [Tasks in Visual Studio Code.](https://code.visualstudio.com/docs/editor/tasks)
 * [Debugging in Visual Studio Code.](https://code.visualstudio.com/docs/editor/debugging)
