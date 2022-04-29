@@ -61,7 +61,7 @@ PixelInput SpriteVertexShader(VertexInput v) {
     output.TexCoord = mul(v.TexCoord, uv_transform);
     return output;
 }
-float4 SpritePixelShader(PixelInput p) : COLOR0 {
+float4 SpritePixelShader(PixelInput p) : SV_TARGET {
     float4 diffuse = tex2D(TextureSampler, p.TexCoord.xy);
 
     // if (p.TexCoord.x < 0 || p.TexCoord.x > 1) {

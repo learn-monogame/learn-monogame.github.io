@@ -47,7 +47,7 @@ PixelInput SpriteVertexShader(VertexInput v) {
     output.TexCoord = v.TexCoord;
     return output;
 }
-float4 SpritePixelShader(PixelInput p) : COLOR0 {
+float4 SpritePixelShader(PixelInput p) : SV_TARGET {
     float4 diffuse = tex2D(TextureSampler, p.TexCoord.xy);
     return diffuse * p.Color;
 }
@@ -371,7 +371,7 @@ This struct is the result from the vertex shader that we generated.
 ---
 
 ```hlsl
-float4 SpritePixelShader(PixelInput p) : COLOR0 {
+float4 SpritePixelShader(PixelInput p) : SV_TARGET {
     float4 diffuse = tex2D(TextureSampler, p.TexCoord.xy);
     return diffuse * p.Color;
 }
