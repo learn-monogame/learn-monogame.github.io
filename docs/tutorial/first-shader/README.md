@@ -400,4 +400,16 @@ It's possible for a technique to have multiple passes.
 
 ---
 
+## Notes
+
+MonoGame's shader compiler optimizes the code that it compiles. If a parameter isn't used, it will be deleted. If you try to pass a value under that parameter name from the C# side you will get the `Object reference not set to an instance of an object.` error. One quick workaround while developing is to use the null conditional operator:
+
+```csharp
+_firstShader.Parameters["super_parameter"]?.SetValue(42f);
+```
+
+This will allow you to easily edit your shader code without having to constantly change your C# code.
+
+## Follow up
+
 A follow up tutorial can be read here: [Infinite background shader](../infinite-background-shader/README.md)
