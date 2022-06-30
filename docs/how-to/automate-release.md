@@ -186,3 +186,5 @@ env:
 Read more about Butler: <https://itch.io/docs/butler/>.
 
 Read more about GitHub Actions: <https://docs.github.com/en/free-pro-team@latest/actions>.
+
+Visit <https://game.ci/docs/faq> to learn about more related projects.
