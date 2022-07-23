@@ -18,6 +18,7 @@ This guide will give you the steps to install MonoGame, get a basic project setu
     dotnet tool install --global dotnet-mgcb-editor
     mgcb-editor --register
     ```
+    > This step step could take a while since the pipeline is a pretty big file. If it looks like the terminal isn't doing anything, it's downloading in the background.
 
 ## Create a new game
 
