@@ -11,6 +11,8 @@ Open the game's directory in vscode. You can do that by dragging the directory d
 ![MyGame directory](MyGame-01.png)
 
 ```
+.config/
+   dotnet-tools.json
 Content/
    Content.mgcb
 app.manifest
@@ -66,7 +68,7 @@ Inside `launch.json` add the following content. Edit the DLL name if your game h
             "request": "launch",
             "preLaunchTask": "buildDesktopGL",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/MyGame.dll",
+            "program": "${workspaceFolder}/bin/Debug/net6.0/MyGame.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
@@ -84,6 +86,8 @@ You should now see:
 ![MyGame directory](MyGame-02.png)
 
 ```
+.config/
+   dotnet-tools.json
 .vscode/
    launch.json
    tasks.json
