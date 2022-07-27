@@ -41,10 +41,10 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
 
         steps:
         - uses: actions/checkout@v2
-        - name: Setup .NET Core
+        - name: Setup dotnet
           uses: actions/setup-dotnet@v1
           with:
-            dotnet-version: '3.1.x'
+            dotnet-version: '6.0.x'
         - name: Get version from tag
           run: |
             TAGVERSION=$(git describe --tags --abbrev=0)
@@ -55,11 +55,11 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             sudo apt install wine64 p7zip-full
             wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/master/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
         - name: Build Windows
-          run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --output artifacts/windows
+          run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --self-contained --output artifacts/windows
         - name: Build Osx
-          run: dotnet publish ${{ env.PROJECT_PATH }} -r osx-x64 -c Release --output artifacts/osx
+          run: dotnet publish ${{ env.PROJECT_PATH }} -r osx-x64 -c Release --self-contained --output artifacts/osx
         - name: Build Linux
-          run: dotnet publish ${{ env.PROJECT_PATH }} -r linux-x64 -c Release --output artifacts/linux
+          run: dotnet publish ${{ env.PROJECT_PATH }} -r linux-x64 -c Release --self-contained --output artifacts/linux
         - name: Publish Windows build to itch.io
           uses: josephbmanley/butler-publish-itchio-action@master
           env:
@@ -163,9 +163,9 @@ wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/master/Tools/MonoG
 Run the publish commands to get builds for each desktop platforms using the BUILD_PATH environment variable from earlier. You can remove or add the platforms you don't want. Each one gets a custom output folder. This is useful for knowing where the builds will be when it's time to upload to itch.io.
 
 ```yml
-run: dotnet publish ${{ env.BUILD_PATH }} -r win-x64 -c Release --output artifacts/windows
-run: dotnet publish ${{ env.BUILD_PATH }} -r osx-x64 -c Release --output artifacts/osx
-run: dotnet publish ${{ env.BUILD_PATH }} -r linux-x64 -c Release --output artifacts/linux
+run: dotnet publish ${{ env.BUILD_PATH }} -r win-x64 -c Release --self-contained --output artifacts/windows
+run: dotnet publish ${{ env.BUILD_PATH }} -r osx-x64 -c Release --self-contained --output artifacts/osx
+run: dotnet publish ${{ env.BUILD_PATH }} -r linux-x64 -c Release --self-contained --output artifacts/linux
 ```
 
 ---
