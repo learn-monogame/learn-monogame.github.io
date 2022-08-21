@@ -47,7 +47,7 @@ Inside `tasks.json` add the following content. Edit the csproj's name if yours i
                 "build",
                 "${workspaceFolder}/MyGame.csproj"
             ],
-            "problemMatcher": "$tsc"
+            "problemMatcher": "$msCompile"
         }
     ]
 }
