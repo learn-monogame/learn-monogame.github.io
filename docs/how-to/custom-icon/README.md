@@ -23,9 +23,9 @@ You can make your own icons using [GIMP](https://www.gimp.org/) by opening both 
 
 ## Test
 
-If you just want to test that it works, replace the default icons with these: [Icon.bmp](./Icon.bmp), [Icon.ico](./Icon.ico).
+If you just want to test that it works, replace the default icons with these: [Icon.bmp](https://raw.githubusercontent.com/learn-monogame/learn-monogame.github.io/main/docs/how-to/custom-icon/Icon.bmp), [Icon.ico](https://raw.githubusercontent.com/learn-monogame/learn-monogame.github.io/main/docs/how-to/custom-icon/Icon.ico).
 
-![Icon](./Icon.bmp)
+![Icon Preview](https://raw.githubusercontent.com/learn-monogame/learn-monogame.github.io/main/docs/how-to/custom-icon/Icon.bmp)
 
 ## Note
 
