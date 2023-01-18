@@ -101,6 +101,18 @@ MyGame.csproj
 Program.cs
 ```
 
+## MonoGame Content Builder Editor
+
+To launch the MonoGame Content Builder Editor, you can call the following command from the root of folder:
+
+```
+dotnet mgcb-editor Content/Content.mgcb
+```
+
+You should see this window appear:
+
+![mgcb-editor preview](./mgcb-editor.png)
+
 ## Read more
 
 * [Tasks in Visual Studio Code.](https://code.visualstudio.com/docs/editor/tasks)
