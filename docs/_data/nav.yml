@@ -9,10 +9,12 @@ links:
         url: /how-to/develop-vscode/
       - title: Automate release
         url: /how-to/automate-release/
-      - title: Fullscreen mode
-        url: /how-to/fullscreen/
       - title: Install a development MonoGame build
         url: /how-to/install-develop/
+      - title: Fullscreen mode
+        url: /how-to/fullscreen/
+      - title: Customize the game icon
+        url: /how-to/custom-icon/
   - title: Tutorials
     url: /tutorial/
     links:

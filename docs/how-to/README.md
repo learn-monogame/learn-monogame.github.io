@@ -5,5 +5,6 @@
 * [Get started](./get-started.md)
 * [Developing with Visual Studio Code](./develop-vscode/README.md)
 * [Automate release](./automate-release.md)
-* [Fullscreen mode](./fullscreen.md)
 * [Install a development MonoGame build](./install-develop.md)
+* [Fullscreen mode](./fullscreen.md)
+* [Customize the game icon](./custom-icon.md)
