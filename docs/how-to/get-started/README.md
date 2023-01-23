@@ -49,6 +49,19 @@ artifacts/linux
 
 You can zip those folders to share your game.
 
+## MonoGame Content Builder Editor
+
+To launch the MonoGame Content Builder Editor, you can call the following command from the root folder of your project:
+
+```
+dotnet mgcb-editor Content/Content.mgcb
+```
+
+You should see this window appear:
+
+![mgcb-editor preview](./mgcb-editor.png)
+
+
 ## Read more
 
 You can read more getting started info from the official [MonoGame docs](https://docs.monogame.net/articles/getting_started/0_getting_started.html).
