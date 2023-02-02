@@ -10,3 +10,4 @@ There are many amazing courses for MonoGame spread across the web. Here are a fe
 * [RB Whitaker's MonoGame tutorials](http://rbwhitaker.wikidot.com/monogame-tutorials)
 * [XNAGameStudio archive](https://github.com/SimonDarksideJ/XNAGameStudio/wiki)
 * [MonoGame Tutorials video series by Oyyou](https://www.youtube.com/playlist?list=PLV27bZtgVIJqoeHrQq6Mt_S1-Fvq_zzGZ)
+* [Shawn Hargreaves Blog Index](https://shawnhargreaves.com/blogindex.html)
