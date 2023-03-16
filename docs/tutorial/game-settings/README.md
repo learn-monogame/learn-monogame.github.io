@@ -17,7 +17,7 @@ You can install them with the following two commands:
 
 ```
 dotnet add package Apos.Input
-dotnet add package FontStashSharp
+dotnet add package FontStashSharp.MonoGame
 ```
 
 Apos.Input provides a simplified API over the MonoGame mouse and keyboard API.
