@@ -3,7 +3,7 @@ Preserve and load data between game runs in a json file.
 
 This tutorial builds on top of [Fullscreen](../../how-to/fullscreen.md).
 
-You will learn how to load and save game settings. You will also learn how to draw text with [FontStashSharp](https://github.com/rds1983/FontStashSharp).
+You will learn how to load and save game settings using C#'s source generator. You will also learn how to draw text with [FontStashSharp](https://github.com/rds1983/FontStashSharp).
 
 ## Project setup
 
@@ -66,6 +66,8 @@ If you open `Content.mgcb` as a text file, this is the content you will see:
 Create a `Settings.cs` file. Paste this content in:
 
 ```csharp
+using System.Text.Json.Serialization;
+
 namespace GameProject {
     public class Settings {
         public int X { get; set; } = 320;
@@ -77,6 +79,12 @@ namespace GameProject {
         public bool IsFullscreen { get; set; } = false;
         public bool IsBorderless { get; set; } = false;
     }
+
+    [JsonSourceGenerationOptionsAttribute(
+        PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
+        WriteIndented = true)]
+    [JsonSerializable(typeof(Settings))]
+    internal partial class SettingsContext : JsonSerializerContext { }
 }
 ```
 
@@ -99,7 +107,7 @@ namespace GameProject {
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
 
-            _settings = EnsureJson<Settings>("Settings.json");
+            _settings = EnsureJson<Settings>("Settings.json", SettingsContext.Default.Settings);
         }
 
         protected override void Initialize() {
@@ -132,7 +140,7 @@ namespace GameProject {
                 SaveWindow();
             }
 
-            SaveJson<Settings>("Settings.json", _settings);
+            SaveJson<Settings>("Settings.json", _settings, SettingsContext.Default.Settings);
 
             base.UnloadContent();
         }
@@ -152,7 +160,7 @@ namespace GameProject {
             if (_resetSettings.Pressed()) {
                 bool oldIsFullscreen = _settings.IsFullscreen;
                 _settings = new Settings();
-                SaveJson("Settings.json", _settings);
+                SaveJson("Settings.json", _settings, SettingsContext.Default.Settings);
 
                 ApplyFullscreenChange(oldIsFullscreen);
             }
@@ -197,32 +205,32 @@ namespace GameProject {
         }
 
         public static string GetPath(string name) => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, name);
-        public static T LoadJson<T>(string name) where T : new() {
+        public static T LoadJson<T>(string name, JsonTypeInfo<T> typeInfo) where T : new() {
             T json;
             string jsonPath = GetPath(name);
 
             if (File.Exists(jsonPath)) {
-                json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), _options);
+                json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo);
             } else {
                 json = new T();
             }
 
             return json;
         }
-        public static void SaveJson<T>(string name, T json) {
+        public static void SaveJson<T>(string name, T json, JsonTypeInfo<T> typeInfo) {
             string jsonPath = GetPath(name);
-            string jsonString = JsonSerializer.Serialize(json, _options);
+            string jsonString = JsonSerializer.Serialize(json, typeInfo);
             File.WriteAllText(jsonPath, jsonString);
         }
-        public static T EnsureJson<T>(string name) where T : new() {
+        public static T EnsureJson<T>(string name, JsonTypeInfo<T> typeInfo) where T : new() {
             T json;
             string jsonPath = GetPath(name);
 
             if (File.Exists(jsonPath)) {
-                json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), _options);
+                json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo);
             } else {
                 json = new T();
-                string jsonString = JsonSerializer.Serialize(json, _options);
+                string jsonString = JsonSerializer.Serialize(json, typeInfo);
                 File.WriteAllText(jsonPath, jsonString);
             }
 
@@ -289,11 +297,6 @@ namespace GameProject {
             );
         ICondition _toggleBorderless = new KeyboardCondition(Keys.F11);
         ICondition _resetSettings = new KeyboardCondition(Keys.R);
-
-        private static JsonSerializerOptions _options = new JsonSerializerOptions {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true,
-        };
     }
 }
 ```
@@ -311,32 +314,32 @@ public static string GetPath(string name) => Path.Combine(AppDomain.CurrentDomai
 The following functions take a generic parameter `T`. For our use case, it will be the `Settings` class, but this will be reusable. This generic gets fed to [System.Text.Json](https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to) which will serialize and deserialize the data for us.
 
 ```csharp
-public static T LoadJson<T>(string name) where T : new() {
+public static T LoadJson<T>(string name, JsonTypeInfo<T> typeInfo) where T : new() {
     T json;
     string jsonPath = GetPath(name);
 
     if (File.Exists(jsonPath)) {
-        json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), _options);
+        json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo);
     } else {
         json = new T();
     }
 
     return json;
 }
-public static void SaveJson<T>(string name, T json) {
+public static void SaveJson<T>(string name, T json, JsonTypeInfo<T> typeInfo) {
     string jsonPath = GetPath(name);
-    string jsonString = JsonSerializer.Serialize(json, _options);
+    string jsonString = JsonSerializer.Serialize(json, typeInfo);
     File.WriteAllText(jsonPath, jsonString);
 }
-public static T EnsureJson<T>(string name) where T : new() {
+public static T EnsureJson<T>(string name, JsonTypeInfo<T> typeInfo) where T : new() {
     T json;
     string jsonPath = GetPath(name);
 
     if (File.Exists(jsonPath)) {
-        json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), _options);
+        json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo);
     } else {
         json = new T();
-        string jsonString = JsonSerializer.Serialize(json, _options);
+        string jsonString = JsonSerializer.Serialize(json, typeInfo);
         File.WriteAllText(jsonPath, jsonString);
     }
 
@@ -352,13 +355,12 @@ public static T EnsureJson<T>(string name) where T : new() {
 
 ---
 
-This options makes sure that the saved json uses camelCase and indents it for human readability.
+These options make sure that the saved json uses camelCase and indents it for human readability.
 
 ```csharp
-private static JsonSerializerOptions _options = new JsonSerializerOptions {
-    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-    WriteIndented = true,
-};
+[JsonSourceGenerationOptionsAttribute(
+    PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
+    WriteIndented = true)]
 ```
 
 ## Read more
