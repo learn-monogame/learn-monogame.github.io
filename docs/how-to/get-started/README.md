@@ -63,7 +63,7 @@ You should see this window appear:
 
 ## Notes
 
-To build shaders, make sure you have the [Visual Studio 2013 redistributable](https://aka.ms/highdpimfc2013x64enu) installed. Otherwise you might see an error about the builder not being unable to load libmojoshader_64.dll.
+To build shaders, make sure you have the [Visual Studio 2013 redistributable](https://aka.ms/highdpimfc2013x64enu) installed. Otherwise you might see an error about the builder being unable to load libmojoshader_64.dll.
 
 ## Read more
 
