@@ -210,7 +210,7 @@ namespace GameProject {
             string jsonPath = GetPath(name);
 
             if (File.Exists(jsonPath)) {
-                json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo);
+                json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo)!;
             } else {
                 json = new T();
             }
@@ -227,7 +227,7 @@ namespace GameProject {
             string jsonPath = GetPath(name);
 
             if (File.Exists(jsonPath)) {
-                json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo);
+                json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo)!;
             } else {
                 json = new T();
                 string jsonString = JsonSerializer.Serialize(json, typeInfo);
@@ -336,7 +336,7 @@ public static T EnsureJson<T>(string name, JsonTypeInfo<T> typeInfo) where T : n
     string jsonPath = GetPath(name);
 
     if (File.Exists(jsonPath)) {
-        json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo);
+        json = JsonSerializer.Deserialize<T>(File.ReadAllText(jsonPath), typeInfo)!;
     } else {
         json = new T();
         string jsonString = JsonSerializer.Serialize(json, typeInfo);
