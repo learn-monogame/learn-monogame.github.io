@@ -11,6 +11,7 @@ env:
   DESCRIPTION: Documentation to learn MonoGame from the ground up.
   BASE: ~
   REPO: https://github.com/learn-monogame/learn-monogame.github.io/tree/main/
+  ANALYTICS: G-9KP7VJY00K
 
 jobs:
   build:
@@ -27,7 +28,7 @@ jobs:
       run: npm install apos-docs -g
     - name: Use apos-docs
       run: |
-        apos-docs -t '${{ env.TITLE }}' -d '${{ env.DESCRIPTION }}' -b '${{ env.BASE }}' -r ${{ env.REPO }}
+        apos-docs -t '${{ env.TITLE }}' -d '${{ env.DESCRIPTION }}' -b '${{ env.BASE }}' -r ${{ env.REPO }} -a ${{ env.ANALYTICS }}
         cd apos-docs
         npm i
         npm run build
