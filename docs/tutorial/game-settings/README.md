@@ -80,7 +80,7 @@ namespace GameProject {
         public bool IsBorderless { get; set; } = false;
     }
 
-    [JsonSourceGenerationOptionsAttribute(
+    [JsonSourceGenerationOptions(
         PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
         WriteIndented = true)]
     [JsonSerializable(typeof(Settings))]
@@ -107,7 +107,7 @@ namespace GameProject {
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
 
-            _settings = EnsureJson<Settings>("Settings.json", SettingsContext.Default.Settings);
+            _settings = EnsureJson("Settings.json", SettingsContext.Default.Settings);
         }
 
         protected override void Initialize() {
@@ -140,7 +140,7 @@ namespace GameProject {
                 SaveWindow();
             }
 
-            SaveJson<Settings>("Settings.json", _settings, SettingsContext.Default.Settings);
+            SaveJson("Settings.json", _settings, SettingsContext.Default.Settings);
 
             base.UnloadContent();
         }
