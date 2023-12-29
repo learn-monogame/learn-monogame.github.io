@@ -42,9 +42,9 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
         steps:
         - uses: actions/checkout@v2
         - name: Setup dotnet
-          uses: actions/setup-dotnet@v1
+          uses: actions/setup-dotnet@v3
           with:
-            dotnet-version: '6.0.x'
+            dotnet-version: '8.0.x'
         - name: Get version from tag
           run: |
             TAGVERSION=$(git describe --tags --abbrev=0)
