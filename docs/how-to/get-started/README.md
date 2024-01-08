@@ -13,6 +13,9 @@ This guide will give you the steps to install MonoGame, get a basic project setu
     ```
     dotnet new install MonoGame.Templates.CSharp
     ```
+    You can ignore this error:
+    > Error: Failed to load template from ...
+    > Details: 'identity' is missing or is an empty string.
 
 ## Create a new game
 
