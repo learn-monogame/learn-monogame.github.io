@@ -391,11 +391,11 @@ public class Game1 : Game {
 
 ## Explanation
 
-A standard game has a game loop that does logic executed on the CPU and rendering that is done on the GPU. To render, data has to be passed by messages sent from the CPU to the GPU, usually referred to as a draw call. Each draw call will take some time to execute. Typically games have a time budget for each frame of 16.6 milliseconds (60 FPS). For this reason, an optimization technique is to batch or combine as many draw calls as possible together to minimize the amount of total draw calls.
+A standard game has a game loop that does logic executed on the CPU and rendering that is done on the GPU. To render, data has to be passed by messages sent from the CPU to the GPU, usually referred to as a draw call. Each draw call will take some time to execute. Typically games have a time budget for each frame of 16.6 milliseconds (60 FPS). For this reason, an optimization technique is to batch or combine as many draw calls as possible to minimize the amount of total draw calls.
 
 This batcher is designed to render quads. A quad is a shape built from four vertices. We can attach data to a vertex which can then be used inside of a shader.
 
-The MonoGame SpriteBatch defines a vertex as a position, color, and texture coordinate (using the type `VertexPositionColorTexture`). We'll build our own vertex type called `FirstVertex` to have more freedom over what can be passed to the shader.
+The MonoGame SpriteBatch defines a vertex as a position, color, and texture coordinate (using the `VertexPositionColorTexture` type). We'll build our own vertex type called `FirstVertex` to have more freedom over what can be passed to the shader.
 
 This batcher will allow 2048 different quads in a single batch to start and grow as needed. A single quad is built from 4 vertices.
 
@@ -414,7 +414,7 @@ GPUs are designed to draw triangles natively. We could represent the quad using 
 
 ![Quad to triangle winding order.](./quad-winding-order.png)
 
-The winding (clockwise) order is important since the GPU uses it to determine the front and the back of the triangles. The first triangle is 0, 1, 3 and the second is 1, 2, 3.
+The winding (clockwise) order is important since the GPU uses it to determine the front and the back of the triangles. You'll notice later that we set the culling to `RasterizerState.CullCounterClockwise`. Triangles that are seen from behind would not get rendered. The first triangle here is 0, 1, 3 and the second is 1, 2, 3.
 
 ```csharp
 private void GenerateIndexArray() {
@@ -443,6 +443,8 @@ _indexBuffer.SetData(_indices);
 ```
 
 Since `_indices` only needs to be reuploaded when the batch resizes, we can send it right away using `SetData`. For `_vertices`, we'll wait until we're ready to send the batch before using `SetData`.
+
+---
 
 The API design for this batcher is similar to the MonoGame SpriteBatch. I kept it simple so that you can adapt it to your needs. It provides 3 methods:
 
@@ -499,13 +501,13 @@ public void Draw(Vector2 xy, Color? color = null) {
 
 The first part of Draw makes sure that we have enough room in the arrays to hold the quad. If there isn't, the strategy is to double the size of the arrays.
 
-After that the position of the quad is determined in world coordinates for all the vertices. In this case we just use the texture's size directly. You could add scaling or rotation here. This batcher is designed for 2D rendering so the Z axis is hardcoded to 0 since we don't care about it.
+After that the position of the quad is determined in world coordinates for all the vertices. In this case we just use the texture's size directly offset by the `xy` parameter. You could add scaling or rotation math here. This batcher is designed for 2D rendering so the Z axis is hardcoded to 0 in the `Vector3` since we don't care about it.
 
 The second parameter in the `FirstVertex` is the texture coordinate. It's a floating point value between 0 and 1. On the X axis, 0 means the left side of the texture and 1 means the right side. On the Y axis, 0 means the top side of the texture and 1 means the bottoms side. Here we hardcoded the values to use the full texture range but if you wanted to support sprite sheets, you could pass different values.
 
-The third parameter is just a tint color.
+The third parameter is just a tint color that's added for fun.
 
-In the shader those values come in as
+In the shader those values come in as:
 
 ```hlsl
 struct VertexInput {
@@ -516,6 +518,12 @@ struct VertexInput {
 ```
 
 Since the quad requires two triangles, we add two to the triangle count. It requires four vertices so we add 4 to the vertex count. It requires 6 indices so we add six to the index count.
+
+```csharp
+_triangleCount += 2;
+_vertexCount += 4;
+_indexCount += 6;
+```
 
 Finally there's the `End` method:
 
