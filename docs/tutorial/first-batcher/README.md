@@ -391,7 +391,7 @@ public class Game1 : Game {
 
 ## Explanation
 
-A standard game has a game loop that does logic executed on the CPU and rendering that is done on the GPU. To render, data has to be passed by messages sent from the CPU to the GPU, usually referred to as a draw call. Each draw call will take some time to execute. Typically games have a time budget for each frame in order to execute at a target FPS such as 60 FPS. For this reason, an optimization technique is to batch or combine as many draw calls as possible together to minimize the amount of total draw calls.
+A standard game has a game loop that does logic executed on the CPU and rendering that is done on the GPU. To render, data has to be passed by messages sent from the CPU to the GPU, usually referred to as a draw call. Each draw call will take some time to execute. Typically games have a time budget for each frame of 16.6 milliseconds (60 FPS). For this reason, an optimization technique is to batch or combine as many draw calls as possible together to minimize the amount of total draw calls.
 
 This batcher is designed to render quads. A quad is a shape built from four vertices. We can attach data to a vertex which can then be used inside of a shader.
 
