@@ -397,6 +397,8 @@ This batcher is designed to render quads. A quad is a shape built from four vert
 
 The MonoGame SpriteBatch defines a vertex as a position, color, and texture coordinate (using the `VertexPositionColorTexture` type). We'll build our own vertex type called `FirstVertex` to have more freedom over what can be passed to the shader.
 
+---
+
 This batcher will allow 2048 different quads in a single batch to start and grow as needed. A single quad is built from 4 vertices.
 
 ```csharp
@@ -409,6 +411,8 @@ private const int _initialIndices = _initialQuads * 6;
 _vertices = new FirstVertex[_initialVertices];
 _indices = new uint[_initialIndices];
 ```
+
+---
 
 GPUs are designed to draw triangles natively. We could represent the quad using two triangles built from 6 vertices, duplicating corner 1 and 3, but instead it's possible to send an index array to reuse the same vertice for two different triangles. This helps save data.
 
@@ -432,6 +436,8 @@ private void GenerateIndexArray() {
 ```
 
 This `GenerateIndexArray` function is coded this way to allow for resizing the index array later and start from the last index position.
+
+---
 
 `_vertices` and `_indices` are currently on the CPU. To pass them to the GPU, we use a VertexBuffer and IndexBuffer respectively so that they become a `GraphicsResource`. `DynamicVertexBuffer` means that we expect the content of the `_vertices` to change every frame.
 
@@ -524,6 +530,8 @@ _triangleCount += 2;
 _vertexCount += 4;
 _indexCount += 6;
 ```
+
+---
 
 Finally there's the `End` method:
 
