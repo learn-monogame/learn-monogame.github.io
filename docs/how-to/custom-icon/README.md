@@ -1,7 +1,7 @@
 # Customize the game icon
 It takes 2 seconds to set up a custom icon!
 
-This guide is a follow up to [Get started](./get-started.md).
+This guide is a follow up to [Get started](../get-started/README.md).
 
 ## Instructions
 
