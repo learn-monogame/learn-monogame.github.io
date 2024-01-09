@@ -566,6 +566,8 @@ private void End() {
 }
 ```
 
+This method sends the batch to the GPU to be drawn.
+
 Of course, don't do any work if nothing is being drawn (aka no triangles). If the indices have changed, regenerate the index array to add the missing indices and recreate the `GraphicsResource` (`DynamicVertexBuffer` and `IndexBuffer`).
 
 Behind the scene, MonoGame doesn't do any extra work if the indices haven't changed:
@@ -585,7 +587,7 @@ GraphicsDevice.SamplerStates[0] = _sampler;
 GraphicsDevice.Textures[0] = _texture;
 ```
 
-Batching requires that all elements being drawn share the same global states. The only differences between what is drawn should be set in the vertices. This is one of the reason that having your own batcher is beneficial since you can add more data that could be used in your shaders.
+Batching requires that all elements being drawn share the same global states. The only differences between what is drawn should be set in the vertices (our `FirstVertex` type). This is one of the reason that having your own batcher is beneficial since you can add more data that could be used in your shaders. A lot of the time, MonoGame devs have to work around the SpriteBatch limitations, having less efficient batches when the data they change globally could be set in the vertices that they don't control. (SpriteSortMode.Immediate anyone?)
 
 If any values here change, you have to end the batch.
 
