@@ -411,4 +411,4 @@ This will allow you to easily edit your shader code without having to constantly
 
 ## Follow up
 
-A follow up tutorial can be read here: [Infinite background shader](../infinite-background-shader/README.md)
+A follow up tutorial can be read here: [Infinite background shader](../infinite-background-shader/README.md) and [First batcher](../first-batcher/README.md).
