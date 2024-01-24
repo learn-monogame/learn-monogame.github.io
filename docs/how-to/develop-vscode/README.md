@@ -103,5 +103,6 @@ Program.cs
 
 ## Read more
 
+* [Setting Up VSCode Development Environment For MonoGame](https://learn-monogame.github.io/how-to/develop-vscode/)
 * [Tasks in Visual Studio Code.](https://code.visualstudio.com/docs/editor/tasks)
 * [Debugging in Visual Studio Code.](https://code.visualstudio.com/docs/editor/debugging)
