@@ -74,4 +74,4 @@ You can read more getting started info from the official [MonoGame docs](https:/
 
 ---
 
-Now that you have a project, the next step is to setup a development environment. [Developing with Visual Studio Code](./develop-vscode/README.md).
+Now that you have a project, the next step is to setup a development environment. [Developing with Visual Studio Code](../develop-vscode/README.md).
