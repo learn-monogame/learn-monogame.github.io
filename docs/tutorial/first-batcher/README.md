@@ -179,18 +179,18 @@ public struct FirstVertex(Vector3 position, Vector2 textureCoordinate, Color col
         return old;
     }
     private static readonly Dictionary<VertexElementFormat, int> Offsets = new() {
-        [VertexElementFormat.Single] = sizeof(float),
-        [VertexElementFormat.Vector2] = sizeof(float) * 2,
-        [VertexElementFormat.Vector3] = sizeof(float) * 3,
-        [VertexElementFormat.Vector4] = sizeof(float) * 4,
-        [VertexElementFormat.Color] = sizeof(int),
-        [VertexElementFormat.Byte4] = sizeof(byte) * 4,
-        [VertexElementFormat.Short2] = sizeof(short) * 2,
-        [VertexElementFormat.Short4] = sizeof(short) * 4,
-        [VertexElementFormat.NormalizedShort2] = sizeof(short) * 2,
-        [VertexElementFormat.NormalizedShort4] = sizeof(short) * 4,
-        [VertexElementFormat.HalfVector2] = sizeof(short) * 2,
-        [VertexElementFormat.HalfVector4] = sizeof(short) * 4,
+        [VertexElementFormat.Single] = 4,
+        [VertexElementFormat.Vector2] = 8,
+        [VertexElementFormat.Vector3] = 12,
+        [VertexElementFormat.Vector4] = 16,
+        [VertexElementFormat.Color] = 4,
+        [VertexElementFormat.Byte4] = 4,
+        [VertexElementFormat.Short2] = 4,
+        [VertexElementFormat.Short4] = 8,
+        [VertexElementFormat.NormalizedShort2] = 4,
+        [VertexElementFormat.NormalizedShort4] = 8,
+        [VertexElementFormat.HalfVector2] = 4,
+        [VertexElementFormat.HalfVector4] = 8,
     };
 }
 
