@@ -219,6 +219,7 @@ namespace GameProject {
         }
         public static void SaveJson<T>(string name, T json, JsonTypeInfo<T> typeInfo) {
             string jsonPath = GetPath(name);
+            Directory.CreateDirectory(Path.GetDirectoryName(jsonPath)!);
             string jsonString = JsonSerializer.Serialize(json, typeInfo);
             File.WriteAllText(jsonPath, jsonString);
         }
@@ -231,6 +232,7 @@ namespace GameProject {
             } else {
                 json = new T();
                 string jsonString = JsonSerializer.Serialize(json, typeInfo);
+                Directory.CreateDirectory(Path.GetDirectoryName(jsonPath)!);
                 File.WriteAllText(jsonPath, jsonString);
             }
 
@@ -328,6 +330,7 @@ public static T LoadJson<T>(string name, JsonTypeInfo<T> typeInfo) where T : new
 }
 public static void SaveJson<T>(string name, T json, JsonTypeInfo<T> typeInfo) {
     string jsonPath = GetPath(name);
+    Directory.CreateDirectory(Path.GetDirectoryName(jsonPath)!);
     string jsonString = JsonSerializer.Serialize(json, typeInfo);
     File.WriteAllText(jsonPath, jsonString);
 }
@@ -340,6 +343,7 @@ public static T EnsureJson<T>(string name, JsonTypeInfo<T> typeInfo) where T : n
     } else {
         json = new T();
         string jsonString = JsonSerializer.Serialize(json, typeInfo);
+        Directory.CreateDirectory(Path.GetDirectoryName(jsonPath)!);
         File.WriteAllText(jsonPath, jsonString);
     }
 
