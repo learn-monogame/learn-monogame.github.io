@@ -52,8 +52,8 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
         - name: Setup Wine
           run: |
             sudo apt update
-            sudo apt install wine64 p7zip-full
-            wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/master/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
+            sudo apt install wine64 p7zip-full curl
+            wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/78636f8056fa981584e3a2a3e0f22e2efbc43ef8/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
         - name: Build Windows
           run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --self-contained --output artifacts/windows
         - name: Build Osx
@@ -155,7 +155,7 @@ env:
 ```yml
 sudo apt update
 sudo apt install wine64 p7zip-full
-wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/master/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
+wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/78636f8056fa981584e3a2a3e0f22e2efbc43ef8/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
 ```
 
 ---
