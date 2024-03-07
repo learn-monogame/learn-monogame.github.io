@@ -34,7 +34,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
     jobs:
       build:
 
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-22.04
 
         env:
           MGFXC_WINE_PATH: /home/runner/.winemonogame
