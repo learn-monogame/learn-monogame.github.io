@@ -139,8 +139,9 @@ using Microsoft.Xna.Framework.Input;
 namespace GameProject {
     public class Game1 : Game {
         public Game1() {
-            _graphics = new GraphicsDeviceManager(this);
-            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            _graphics = new GraphicsDeviceManager(this) {
+                GraphicsProfile = GraphicsProfile.HiDef
+            };
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
             Window.AllowUserResizing = true;
@@ -169,8 +170,8 @@ namespace GameProject {
 
             UpdateCameraInput();
 
-            _scale = ExpToScale(Interpolate(ScaleToExp(_scale), _targetExp, _speed, _snapDistance));
-            _rotation = Interpolate(_rotation, _targetRotation, _speed, _snapDistance);
+            _scale = ExpToScale(ExpDecay(ScaleToExp(_scale), _targetExp, _decay, (float)gameTime.ElapsedGameTime.TotalMilliseconds));
+            _rotation = ExpDecay(_rotation, _targetRotation, _decay, (float)gameTime.ElapsedGameTime.TotalMilliseconds);
 
             InputHelper.UpdateCleanup();
             base.Update(gameTime);
@@ -224,36 +225,21 @@ namespace GameProject {
         }
 
         /// <summary>
-        /// Poor man's tweening function.
-        /// If the result is stored in the value, it will create a nice interpolation over multiple frames.
+        /// More info at https://www.youtube.com/watch?v=LSNQuFEDOyQ
         /// </summary>
         /// <param name="start">The value to start from.</param>
         /// <param name="target">The value to reach.</param>
-        /// <param name="speed">A value between 0f and 1f.</param>
-        /// <param name="snapNear">
-        /// When the difference between the target and the result is smaller than this value, the target will be returned.
-        /// </param>
+        /// <param name="decay">Exponential decay constant, lower is slower.</param>
+        /// <param name="deltaTime">The time since the last frame.</param>
         /// <returns></returns>
-        private float Interpolate(float start, float target, float speed, float snapNear) {
-            float result = MathHelper.Lerp(start, target, speed);
-
-            if (start < target) {
-                result = MathHelper.Clamp(result, start, target);
-            } else {
-                result = MathHelper.Clamp(result, target, start);
-            }
-
-            if (MathF.Abs(target - result) < snapNear) {
-                return target;
-            } else {
-                return result;
-            }
+        private static float ExpDecay(float start, float target, float decay, float deltaTime) {
+            return target + (start - target) * MathF.Exp(-decay * deltaTime);
         }
 
         private Matrix GetView() {
             int width = GraphicsDevice.Viewport.Width;
             int height = GraphicsDevice.Viewport.Height;
-            Vector2 origin = new Vector2(width / 2f, height / 2f);
+            Vector2 origin = new(width / 2f, height / 2f);
 
             return
                 Matrix.CreateTranslation(-origin.X, -origin.Y, 0f) *
@@ -271,10 +257,10 @@ namespace GameProject {
                 Matrix.CreateScale(1f / v.Width, 1f / v.Height, 1f);
         }
 
-        private float ScaleToExp(float scale) {
+        private static float ScaleToExp(float scale) {
             return -MathF.Log(scale);
         }
-        private float ExpToScale(float exp) {
+        private static float ExpToScale(float exp) {
             return MathF.Exp(-exp);
         }
 
@@ -284,14 +270,13 @@ namespace GameProject {
         Texture2D _background;
         Effect _infinite;
 
-        Vector2 _xy = new Vector2(0f, 0f);
+        Vector2 _xy = new(0f, 0f);
         float _scale = 1f;
         float _rotation = 0f;
 
         float _targetExp = 0f;
         float _targetRotation = 0f;
-        float _speed = 0.08f;
-        float _snapDistance = 0.001f;
+        float _decay = 0.005f;
 
         Vector2 _mouseWorld = Vector2.Zero;
         Vector2 _dragAnchor = Vector2.Zero;
