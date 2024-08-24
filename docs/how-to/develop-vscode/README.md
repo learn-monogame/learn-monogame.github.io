@@ -68,7 +68,7 @@ Inside `launch.json` add the following content. Edit the DLL name if your game h
             "request": "launch",
             "preLaunchTask": "buildDesktopGL",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bin/Debug/net6.0/MyGame.dll",
+            "program": "${workspaceFolder}/bin/Debug/net8.0/MyGame.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
