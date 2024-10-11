@@ -327,9 +327,11 @@ public class Game1 : Game {
         GraphicsDevice.DepthStencilState = DepthStencilState.None;
         GraphicsDevice.BlendState = BlendState.AlphaBlend;
         GraphicsDevice.SamplerStates[0] = _sampler;
-        GraphicsDevice.Textures[0] = _texture;
 
         _firstShader.CurrentTechnique.Passes[0].Apply();
+
+        GraphicsDevice.Textures[0] = _texture;
+
         GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, _triangleCount);
 
         _triangleCount = 0;
@@ -563,9 +565,11 @@ private void End() {
     GraphicsDevice.DepthStencilState = DepthStencilState.None;
     GraphicsDevice.BlendState = BlendState.AlphaBlend;
     GraphicsDevice.SamplerStates[0] = _sampler;
-    GraphicsDevice.Textures[0] = _texture;
 
     _firstShader.CurrentTechnique.Passes[0].Apply();
+
+    GraphicsDevice.Textures[0] = _texture;
+
     GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, _triangleCount);
 
     _triangleCount = 0;
