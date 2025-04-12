@@ -34,7 +34,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
     jobs:
       build:
 
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
 
         env:
           MGFXC_WINE_PATH: /home/runner/.winemonogame
@@ -51,9 +51,10 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             echo "TAGVERSION=${TAGVERSION:1}" >> $GITHUB_ENV
         - name: Setup Wine
           run: |
+            sudo add-apt-repository universe
             sudo apt update
-            sudo apt install wine64 p7zip-full curl
-            wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/78636f8056fa981584e3a2a3e0f22e2efbc43ef8/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
+            sudo apt install wget curl p7zip-full wine64
+            wget -qO- https://raw.githubusercontent.com/MonoGame/monogame.github.io/9cd8a3b4e27ac03fe993f507a1da7fe70eb1eb8d/website/content/public/downloads/winesetup/net8_mgfxc_wine_setup.sh | sh
         - name: Build Windows
           run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --self-contained --output artifacts/windows
         - name: Build Osx
@@ -154,8 +155,8 @@ env:
 
 ```yml
 sudo apt update
-sudo apt install wine64 p7zip-full
-wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/78636f8056fa981584e3a2a3e0f22e2efbc43ef8/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | sh
+sudo apt install wget curl p7zip-full wine64
+wget -qO- https://raw.githubusercontent.com/MonoGame/monogame.github.io/9cd8a3b4e27ac03fe993f507a1da7fe70eb1eb8d/website/content/public/downloads/winesetup/net8_mgfxc_wine_setup.sh | sh
 ```
 
 ---
