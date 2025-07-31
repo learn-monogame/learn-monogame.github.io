@@ -28,7 +28,7 @@ You can also install a specific version:
 ```
 dotnet add package MonoGame.Framework.DesktopGL --version 3.8.4.2602-develop
 dotnet add package MonoGame.Content.Builder.Task --version 3.8.4.2602-develop
-dotnet new --install MonoGame.Templates.CSharp::3.8.4.2602-develop
+dotnet new install MonoGame.Templates.CSharp::3.8.4.2602-develop
 ```
 
 To remove the GitHub source from step 2, you can do:
