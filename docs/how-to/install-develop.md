@@ -39,6 +39,7 @@ dotnet nuget remove source MonoGameGitHub
 
 ## Read more
 
+* [Using the Development Nuget Packages](https://docs.monogame.net/articles/getting_started/using_development_nuget_packages.html)
 * [Working with the NuGet registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry)
 * [Managing your personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 * [dotnet nuget add source](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-list-source)
