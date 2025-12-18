@@ -4,7 +4,7 @@ This guide will give you the steps to install MonoGame, get a basic project setu
 
 ## Install
 
-1. Get the [.NET 9.0 SDK](https://dotnet.microsoft.com/download).
+1. Get the [.NET 10.0 SDK](https://dotnet.microsoft.com/download).
    * Test that dotnet is installed correctly:
     ```
     dotnet --version
@@ -14,8 +14,6 @@ This guide will give you the steps to install MonoGame, get a basic project setu
     dotnet new install MonoGame.Templates.CSharp
     ```
     You can ignore this error:
-    > Error: Failed to load template from ...
-    > Details: 'identity' is missing or is an empty string.
 
 ## Create a new game
 
