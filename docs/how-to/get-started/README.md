@@ -63,11 +63,11 @@ You should see this window appear:
 
 ## Notes
 
-To build shaders, make sure you have the [Visual Studio 2013 redistributable](https://aka.ms/highdpimfc2013x64enu) installed. Otherwise you might see an error about the builder being unable to load libmojoshader_64.dll.
+To build shaders, make sure you have the [Visual Studio 2013 redistributable](https://www.microsoft.com/en-ca/download/details.aspx?id=40784) installed. Otherwise you might see an error about the builder being unable to load libmojoshader_64.dll.
 
 ## Read more
 
-You can read more getting started info from the official [MonoGame docs](https://docs.monogame.net/articles/getting_started/0_getting_started.html).
+You can read more getting started info from the official [MonoGame docs](https://docs.monogame.net/articles/getting_started/index.html).
 
 ---
 
