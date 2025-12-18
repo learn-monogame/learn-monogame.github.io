@@ -40,11 +40,11 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
           MGFXC_WINE_PATH: /home/runner/.winemonogame
 
         steps:
-        - uses: actions/checkout@v2
+        - uses: actions/checkout@v4
         - name: Setup dotnet
-          uses: actions/setup-dotnet@v3
+          uses: actions/setup-dotnet@v4
           with:
-            dotnet-version: '8.0.x'
+            dotnet-version: '9.0.x'
         - name: Get version from tag
           run: |
             TAGVERSION=$(git describe --tags --abbrev=0)
@@ -54,15 +54,15 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             sudo add-apt-repository universe
             sudo apt update
             sudo apt install wget curl p7zip-full wine64
-            wget -qO- https://raw.githubusercontent.com/MonoGame/monogame.github.io/9cd8a3b4e27ac03fe993f507a1da7fe70eb1eb8d/website/content/public/downloads/winesetup/net8_mgfxc_wine_setup.sh | sh
+            wget -qO- https://raw.githubusercontent.com/MonoGame/monogame.github.io/1b6099cf90c4aefe311b6d8fdbcdd55fec3770aa/website/content/public/downloads/winesetup/net9_mgfxc_wine_setup.sh | sh
         - name: Build Windows
-          run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --self-contained --output artifacts/windows
+          run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --output artifacts/windows --self-contained -p:Version=${{ env.TAGVERSION }}
         - name: Build Osx
-          run: dotnet publish ${{ env.PROJECT_PATH }} -r osx-x64 -c Release --self-contained --output artifacts/osx
+          run: dotnet publish ${{ env.PROJECT_PATH }} -r osx-x64 -c Release --output artifacts/osx --self-contained -p:Version=${{ env.TAGVERSION }}
         - name: Build Linux
-          run: dotnet publish ${{ env.PROJECT_PATH }} -r linux-x64 -c Release --self-contained --output artifacts/linux
+          run: dotnet publish ${{ env.PROJECT_PATH }} -r linux-x64 -c Release --output artifacts/linux --self-contained -p:Version=${{ env.TAGVERSION }}
         - name: Publish Windows build to itch.io
-          uses: josephbmanley/butler-publish-itchio-action@master
+          uses: yeslayla/butler-publish-itchio-action@master
           env:
             BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
             CHANNEL: windows
@@ -71,7 +71,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             PACKAGE: artifacts/windows
             VERSION: ${{ env.TAGVERSION }}
         - name: Publish OSX build to itch.io
-          uses: josephbmanley/butler-publish-itchio-action@master
+          uses: yeslayla/butler-publish-itchio-action@master
           env:
             BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
             CHANNEL: osx
@@ -80,7 +80,7 @@ Here are the steps to setup a build pipeline for MonoGame that does a release on
             PACKAGE: artifacts/osx
             VERSION: ${{ env.TAGVERSION }}
         - name: Publish Linux build to itch.io
-          uses: josephbmanley/butler-publish-itchio-action@master
+          uses: yeslayla/butler-publish-itchio-action@master
           env:
             BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
             CHANNEL: linux
@@ -154,31 +154,34 @@ env:
 ```
 
 ```yml
+sudo add-apt-repository universe
 sudo apt update
 sudo apt install wget curl p7zip-full wine64
-wget -qO- https://raw.githubusercontent.com/MonoGame/monogame.github.io/9cd8a3b4e27ac03fe993f507a1da7fe70eb1eb8d/website/content/public/downloads/winesetup/net8_mgfxc_wine_setup.sh | sh
+wget -qO- https://raw.githubusercontent.com/MonoGame/monogame.github.io/1b6099cf90c4aefe311b6d8fdbcdd55fec3770aa/website/content/public/downloads/winesetup/net9_mgfxc_wine_setup.sh | sh
 ```
 
 ---
 
-Run the publish commands to get builds for each desktop platforms using the BUILD_PATH environment variable from earlier. You can remove or add the platforms you don't want. Each one gets a custom output folder. This is useful for knowing where the builds will be when it's time to upload to itch.io.
+Run the publish commands to get builds for each desktop platforms using the BUILD_PATH and TAGVERSION environment variables from earlier. You can remove or add the platforms you don't want. Each one gets a custom output folder. This is useful for knowing where the builds will be when it's time to upload to itch.io.
 
 ```yml
-run: dotnet publish ${{ env.BUILD_PATH }} -r win-x64 -c Release --self-contained --output artifacts/windows
-run: dotnet publish ${{ env.BUILD_PATH }} -r osx-x64 -c Release --self-contained --output artifacts/osx
-run: dotnet publish ${{ env.BUILD_PATH }} -r linux-x64 -c Release --self-contained --output artifacts/linux
+run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 -c Release --output artifacts/windows --self-contained -p:Version=${{ env.TAGVERSION }}
+run: dotnet publish ${{ env.PROJECT_PATH }} -r osx-x64 -c Release --output artifacts/osx --self-contained -p:Version=${{ env.TAGVERSION }}
+run: dotnet publish ${{ env.PROJECT_PATH }} -r linux-x64 -c Release --output artifacts/linux --self-contained -p:Version=${{ env.TAGVERSION }}
 ```
 
 ---
 
-The last step uses the [Butler Push](https://github.com/josephbmanley/butler-publish-itchio-action) action feeding it the previous environment variables from earlier and the `BUTLER_API_KEY` API key added in step 6. This command gets run once for each platforms to release on.
+The last step uses the [Butler Push](https://github.com/yeslayla/butler-publish-itchio-action) action feeding it the previous environment variables from earlier and the `BUTLER_API_KEY` API key added in step 6. This command gets run once for each platforms to release on.
 
 ```yml
-uses: josephbmanley/butler-publish-itchio-action@master
+uses: yeslayla/butler-publish-itchio-action@master
 env:
   BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+  CHANNEL: windows
   ITCH_GAME: ${{ env.ITCH_GAME_NAME }}
   ITCH_USER: ${{ env.ITCH_USER_NAME }}
+  PACKAGE: artifacts/windows
   VERSION: ${{ env.TAGVERSION }}
 ```
 
