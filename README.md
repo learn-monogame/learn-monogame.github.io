@@ -1,6 +1,6 @@
 # Learn MonoGame
 
-Documentation to learn MonoGame from the ground up.
+Unofficial documentation to learn MonoGame from the ground up.
 
 To get started, read the [Get started](https://learn-monogame.github.io/how-to/get-started/) guide.
 
