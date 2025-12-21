@@ -10,7 +10,7 @@ on:
 
 env:
   TITLE: Learn MonoGame
-  DESCRIPTION: Documentation to learn MonoGame from the ground up.
+  DESCRIPTION: Unofficial documentation to learn MonoGame from the ground up.
   BASE: ~
   REPO: https://github.com/learn-monogame/learn-monogame.github.io/tree/main/
   ANALYTICS: G-9KP7VJY00K
