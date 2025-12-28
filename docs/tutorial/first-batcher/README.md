@@ -259,7 +259,7 @@ public class Game1 : Game {
 
         _texture = texture ?? _image;
         _view = view ?? Matrix.Identity;
-        _projection = projection ?? Matrix.CreateOrthographicOffCenter(viewport.X, viewport.Width, viewport.Height, viewport.Y, 0, 1);
+        _projection = projection ?? Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, 0, 1);
         _sampler = sampler ?? SamplerState.LinearClamp;
     }
 
