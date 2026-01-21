@@ -113,6 +113,11 @@ git tag --delete v1
 git push origin tag --delete v1
 ```
 
+To quickly check what the latest tag version is, you can use:
+```
+git describe --tags --abbrev=0
+```
+
 ## Explanation
 
 Trigger a release when a new version tag is pushed.
