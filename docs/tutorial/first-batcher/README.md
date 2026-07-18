@@ -224,6 +224,7 @@ public class Game1 : Game {
     protected override void LoadContent() {
         _image = Content.Load<Texture2D>("image");
         _firstShader = Content.Load<Effect>("first-shader");
+        _viewProjection = _firstShader.Parameters["view_projection"];
 
         _vertices = new FirstVertex[_initialVertices];
         _indices = new uint[_initialIndices];
@@ -317,12 +318,12 @@ public class Game1 : Game {
             _indicesChanged = false;
         }
 
-        _vertexBuffer.SetData(_vertices);
+        _vertexBuffer.SetData(_vertices, 0, _vertexCount, SetDataOptions.Discard);
         GraphicsDevice.SetVertexBuffer(_vertexBuffer);
 
         GraphicsDevice.Indices = _indexBuffer;
 
-        _firstShader.Parameters["view_projection"].SetValue(_view * _projection);
+        _viewProjection.SetValue(_view * _projection);
         GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
         GraphicsDevice.DepthStencilState = DepthStencilState.None;
         GraphicsDevice.BlendState = BlendState.AlphaBlend;
@@ -366,10 +367,11 @@ public class Game1 : Game {
 
     private Texture2D _image = null!;
     private Effect _firstShader = null!;
+    private EffectParameter _viewProjection = null!;
 
-    private const int _initialSprites = 2048;
-    private const int _initialVertices = _initialSprites * 4;
-    private const int _initialIndices = _initialSprites * 6;
+    private const int _initialQuads = 2048;
+    private const int _initialVertices = _initialQuads * 4;
+    private const int _initialIndices = _initialQuads * 6;
 
     private SamplerState _sampler = null!;
     private Texture2D _texture = null!;
@@ -451,6 +453,14 @@ _indexBuffer.SetData(_indices);
 ```
 
 Since `_indices` only needs to be reuploaded when the batch resizes, we can send it right away using `SetData`. For `_vertices`, we'll wait until we're ready to send the batch before using `SetData`.
+
+---
+
+```csharp
+_viewProjection = _firstShader.Parameters["view_projection"];
+```
+
+Looking up an `EffectParameter` by name does a string comparison against every parameter in the shader. We only need to do that lookup once, so we cache the `EffectParameter` reference in `LoadContent` and reuse it every time we send the batch instead of paying for the lookup every frame.
 
 ---
 
@@ -538,7 +548,7 @@ _indexCount += 6;
 Finally there's the `End` method:
 
 ```csharp
-private void End() {
+public void End() {
     if (_triangleCount == 0) return;
 
     if (_indicesChanged) {
@@ -555,12 +565,12 @@ private void End() {
         _indicesChanged = false;
     }
 
-    _vertexBuffer.SetData(_vertices);
+    _vertexBuffer.SetData(_vertices, 0, _vertexCount, SetDataOptions.Discard);
     GraphicsDevice.SetVertexBuffer(_vertexBuffer);
 
     GraphicsDevice.Indices = _indexBuffer;
 
-    _firstShader.Parameters["view_projection"].SetValue(_view * _projection);
+    _viewProjection.SetValue(_view * _projection);
     GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
     GraphicsDevice.DepthStencilState = DepthStencilState.None;
     GraphicsDevice.BlendState = BlendState.AlphaBlend;
@@ -582,6 +592,12 @@ This method sends the batch to the GPU to be drawn.
 
 Of course, don't do any work if nothing is being drawn (aka no triangles). If the indices have changed, regenerate the index array to add the missing indices and recreate the `GraphicsResource` (`DynamicVertexBuffer` and `IndexBuffer`).
 
+```csharp
+_vertexBuffer.SetData(_vertices, 0, _vertexCount, SetDataOptions.Discard);
+```
+
+`_vertices` is sized to the batch's capacity, but only the first `_vertexCount` entries were actually written this frame, so we only upload that range instead of the whole array. `SetDataOptions.Discard` tells the driver that it can forget about the buffer's previous content instead of waiting for the GPU to finish using it before accepting new data. Without it, the CPU would have to stall until the previous frame's draw call using that same buffer is done, since we're writing to it again. With `Discard`, the driver can hand us a fresh backing region and reclaim the old one once the GPU is finished with it, so the CPU keeps going without waiting.
+
 Behind the scene, MonoGame doesn't do any extra work if the indices haven't changed:
 
 ```csharp
@@ -591,7 +607,7 @@ GraphicsDevice.Indices = _indexBuffer;
 Here we set the rendering states for the current batch:
 
 ```csharp
-_firstShader.Parameters["view_projection"].SetValue(_view * _projection);
+_viewProjection.SetValue(_view * _projection);
 GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 GraphicsDevice.DepthStencilState = DepthStencilState.None;
 GraphicsDevice.BlendState = BlendState.AlphaBlend;
