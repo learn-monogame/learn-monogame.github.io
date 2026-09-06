@@ -27,7 +27,7 @@ You have some code that you want to share between multiple projects? Making a li
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" PrivateAssets="All" Version="3.8.*" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" PrivateAssets="All" Version="3.8.0.1641" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,7 +41,9 @@ You have some code that you want to share between multiple projects? Making a li
 </Project>
 ```
 
-MonoGame ships `net8.0`, so the library targets `net8.0` too. A `netstandard2.0` library restores against it with no compile assets at all, and nothing errors out until every MonoGame type you touch comes back as `CS0246`.
+The MonoGame reference is pinned to the oldest version you want to support rather than the newest, and `PrivateAssets="All"` keeps it out of your package's dependencies. Consumers bring their own MonoGame, so a library built against 3.8.0.1641 runs fine inside a game on 3.8.5.1. Pin to the newest instead and you force every consumer to upgrade with you.
+
+Target `net8.0` to match what MonoGame ships.
 
 SourceLink comes from the .NET SDK, so `PublishRepositoryUrl` and `EmbedUntrackedSources` are all it needs.
 
