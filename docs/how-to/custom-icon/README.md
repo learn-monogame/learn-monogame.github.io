@@ -5,19 +5,9 @@ This guide is a follow up to [Get started](../get-started/README.md).
 
 ## Instructions
 
-Open your `MyGame.csproj`, search for the following line:
+Your project already ships with an `Icon.bmp` and an `Icon.ico`. Replacing those two files is the whole job.
 
-```xml
-<EmbeddedResource Include="Icon.bmp" />
-```
-
-replace it with:
-
-```xml
-<EmbeddedResource Include="Icon.bmp">
-  <LogicalName>Icon.bmp</LogicalName>
-</EmbeddedResource>
-```
+`Icon.ico` is the icon Windows shows for the executable. `Icon.bmp` is the one MonoGame loads at runtime for the window.
 
 You can make your own icons using [GIMP](https://www.gimp.org/) by opening both of your default Icon.bmp and Icon.ico, edit them, and then export using the `Export As...` command (`CTRL + SHIFT + E`).
 

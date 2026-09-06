@@ -30,7 +30,7 @@ Add the following font to the `Content` folder and call it `source-code-pro-medi
 
 ### Content pipeline
 
-Open `Content.mgcb` using the MonoGame Content Builder Editor interface. (Read [Get started](../../how-to/get-started.md) to learn how to get it.) Add the font to the content pipeline editor as an existing item:
+Open `Content.mgcb` using the MonoGame Content Builder Editor interface. (Read [Get started](../../how-to/get-started/README.md) to learn how to get it.) Add the font to the content pipeline editor as an existing item:
 
 ![Use existing item to add them to the MonoGame pipeline.](./add-existing-item.png)
 
@@ -147,7 +147,7 @@ namespace GameProject {
         }
 
         protected override void Update(GameTime gameTime) {
-            InputHelper.UpdateSetup();
+            InputHelper.UpdateSetup(gameTime);
 
             if (_quit.Pressed())
                 Exit();

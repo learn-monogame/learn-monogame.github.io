@@ -35,7 +35,8 @@ You can publish on Windows, Mac, and Linux using:
 
 ```
 dotnet publish -c Release -r win-x64 -o artifacts/windows --self-contained
-dotnet publish -c Release -r osx-x64 -o artifacts/osx --self-contained
+dotnet publish -c Release -r osx-arm64 -o artifacts/osx-arm64 --self-contained
+dotnet publish -c Release -r osx-x64 -o artifacts/osx-x64 --self-contained
 dotnet publish -c Release -r linux-x64 -o artifacts/linux --self-contained
 ```
 
@@ -43,27 +44,34 @@ You'll find the output in:
 
 ```
 artifacts/windows
-artifacts/osx
+artifacts/osx-arm64
+artifacts/osx-x64
 artifacts/linux
 ```
 
-You can zip those folders to share your game.
+Macs have shipped with Apple Silicon since 2020, so `osx-arm64` is the build most of your players need. An `osx-x64` build still runs there through Rosetta, though it's slower and Rosetta isn't installed by default.
+
+Zipping a folder is enough to share the Windows and Linux builds. macOS needs more. The game has to be an `.app` bundle to be double-clickable, and every Mach-O binary inside that bundle has to be signed, since Apple Silicon kills any process whose images aren't. MonoGame covers the bundle layout in [Package games for distribution](https://docs.monogame.net/articles/getting_started/packaging_games.html).
 
 ## MonoGame Content Builder Editor
 
-To launch the MonoGame Content Builder Editor, you can call the following command from the root folder of your project:
+The editor ships as a local dotnet tool, so restore it once per project:
+
+```
+dotnet tool restore
+```
+
+Then launch it from the root folder of your project:
 
 ```
 dotnet mgcb-editor Content/Content.mgcb
 ```
 
+`dotnet build` restores the tools too, so you can skip the restore if you've already built the project once.
+
 You should see this window appear:
 
 ![mgcb-editor preview](./mgcb-editor.png)
-
-## Notes
-
-To build shaders, make sure you have the [Visual Studio 2013 redistributable](https://www.microsoft.com/en-ca/download/details.aspx?id=40784) (*vcredist_x64.exe*) installed. Otherwise you might see an error about the builder being unable to load libmojoshader_64.dll.
 
 ## Read more
 

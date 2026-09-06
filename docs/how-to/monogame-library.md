@@ -8,7 +8,7 @@ You have some code that you want to share between multiple projects? Making a li
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <PackageId>LibraryName</PackageId>
     <Description>Your Description</Description>
     <Authors>Your Name</Authors>
@@ -27,19 +27,11 @@ You have some code that you want to share between multiple projects? Making a li
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" PrivateAssets="All" Version="3.8.0.1641" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" PrivateAssets="All" Version="3.8.*" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="../Images/Icon.png" Pack="true" PackagePath="" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <SourceRoot Include="$(MSBuildThisFileDirectory)/"/>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
@@ -48,6 +40,10 @@ You have some code that you want to share between multiple projects? Making a li
 
 </Project>
 ```
+
+MonoGame ships `net8.0`, so the library targets `net8.0` too. A `netstandard2.0` library restores against it with no compile assets at all, and nothing errors out until every MonoGame type you touch comes back as `CS0246`.
+
+SourceLink comes from the .NET SDK, so `PublishRepositoryUrl` and `EmbedUntrackedSources` are all it needs.
 
 ## GitHub Action
 
@@ -71,17 +67,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: '3.1.x'
+        dotnet-version: '10.0.x'
     - name: Get version from tag
       run: |
         TAGVERSION=$(git describe --tags --abbrev=0)
         echo "TAGVERSION=${TAGVERSION:1}" >> $GITHUB_ENV
     - name: Pack with dotnet
-      run: dotnet pack ${{ env.SOURCE }} -c Release --include-source --include-symbols -o ./artifacts -p:Version=${{ env.TAGVERSION }}
+      run: dotnet pack ${{ env.SOURCE }} -c Release -o ./artifacts -p:Version=${{ env.TAGVERSION }}
     - name: Push with dotnet
       run: dotnet nuget push ./artifacts/*.nupkg -k ${{ secrets.NuGetAPIKey }} -s https://api.nuget.org/v3/index.json --skip-duplicate
 ```

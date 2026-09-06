@@ -6,7 +6,7 @@ There are many amazing courses for MonoGame spread across the web. Here are a fe
 * [Making an RPG with MonoGame](https://lioncatdevstudio.blogspot.com/search/label/monogame)
 * [MonoGame issues on MacOSX](https://lajbert.github.io/blog/mac_os_issues/)
 * [MonoGame.net tutorial list](https://docs.monogame.net/articles/tutorials/index.html)
-* [MrGrak's Monogame Getting Started Guide](https://rawgit.com/MrGrak/Monogame-Getting-Started/master/index.html)
+* [MrGrak's Monogame Getting Started Guide](https://github.com/MrGrak/Monogame-Getting-Started)
 * [RB Whitaker's MonoGame tutorials](http://rbwhitaker.wikidot.com/monogame-tutorials)
 * [XNAGameStudio archive](https://github.com/SimonDarksideJ/XNAGameStudio/wiki)
 * [Shawn Hargreaves Blog Index](https://shawnhargreaves.com/blogindex.html)

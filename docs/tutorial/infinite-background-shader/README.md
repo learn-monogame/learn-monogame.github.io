@@ -1,7 +1,7 @@
 # Infinite background shader
 Tile an infinite background in no time! This tutorial will teach you how to write a shader that will tile a background infinitely or along any axis.
 
-This tutorial builds on top of [Get started](../../how-to/get-started.md) and [First shader](../first-shader/README.md).
+This tutorial builds on top of [Get started](../../how-to/get-started/README.md) and [First shader](../first-shader/README.md).
 
 The first part of this tutorial will walk you through the project setup without explaining much. Once the project is setup and you can run it, you’ll be walked through it line by line to understand how everything works under the hood.
 
@@ -85,7 +85,7 @@ technique SpriteBatch {
 
 ### Content pipeline
 
-Open `Content.mgcb` using the MonoGame Content Builder Editor interface. (Read [Get started](../../how-to/get-started.md) to learn how to get it.) Add both to the content pipeline editor as an existing item:
+Open `Content.mgcb` using the MonoGame Content Builder Editor interface. (Read [Get started](../../how-to/get-started/README.md) to learn how to get it.) Add both to the content pipeline editor as an existing item:
 
 ![Use existing item to add them to the MonoGame pipeline.](./add-existing-item.png)
 
@@ -163,7 +163,7 @@ namespace GameProject {
         }
 
         protected override void Update(GameTime gameTime) {
-            InputHelper.UpdateSetup();
+            InputHelper.UpdateSetup(gameTime);
 
             if (_quit.Pressed())
                 Exit();

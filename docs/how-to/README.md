@@ -2,9 +2,10 @@
 
 [How-to guides](https://diataxis.fr/how-to-guides/) are directions that take the reader through the steps required to solve a real-world problem. How-to guides are goal-oriented.
 
-* [Get started](./get-started.md)
+* [Get started](./get-started/README.md)
 * [Developing with Visual Studio Code](./develop-vscode/README.md)
 * [Automate release](./automate-release.md)
 * [Install a development MonoGame build](./install-develop.md)
 * [Fullscreen mode](./fullscreen.md)
-* [Customize the game icon](./custom-icon.md)
+* [Customize the game icon](./custom-icon/README.md)
+* [MonoGame library](./monogame-library.md)

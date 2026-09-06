@@ -2,7 +2,7 @@
 
 The default MonoGame SpriteBatch is nice, but when you want to take full control over what gets passed to the GPU it's a good idea to make your own.
 
-This tutorial builds on top of [Get started](../../how-to/get-started.md) and [First shader](../first-shader/README.md).
+This tutorial builds on top of [Get started](../../how-to/get-started/README.md) and [First shader](../first-shader/README.md).
 
 The first part of this tutorial will walk you through the project setup without explaining much. Once the project is setup and you can run it, you'll be walked through it line by line to understand how everything works under the hood.
 
@@ -10,9 +10,21 @@ The first part of this tutorial will walk you through the project setup without 
 
 The completed project can be found [here](https://github.com/learn-monogame/first-batcher).
 
+### Nullable
+
+The code below uses nullable annotations like `Texture2D?` and `null!`, so turn them on in your `MyGame.csproj`:
+
+```xml
+<PropertyGroup>
+  <Nullable>enable</Nullable>
+</PropertyGroup>
+```
+
+Without it every annotation compiles to a warning instead of doing anything.
+
 ### Assets
 
-Add the following image to the `Content` folder and call it `background.png`:
+Add the following image to the `Content` folder and call it `image.png`:
 
 ![The background image](./image.png)
 
@@ -66,7 +78,7 @@ technique SpriteBatch {
 
 ### Content pipeline
 
-Open `Content.mgcb` using the MonoGame Content Builder Editor interface. (Read [Get started](../../how-to/get-started.md) to learn how to get it.) Add both to the content pipeline editor as an existing item:
+Open `Content.mgcb` using the MonoGame Content Builder Editor interface. (Read [Get started](../../how-to/get-started/README.md) to learn how to get it.) Add both to the content pipeline editor as an existing item:
 
 ![Use existing item to add them to the MonoGame pipeline.](./add-existing-item.png)
 
@@ -113,6 +125,7 @@ If you open `Content.mgcb` as a text file, this is the content you will see:
 Create a `FirstVertex.cs` file. Paste this content in:
 
 ```csharp
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

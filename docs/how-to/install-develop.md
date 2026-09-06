@@ -10,26 +10,27 @@ Each time a new commit makes it into the [MonoGame develop branch](https://githu
    ```
    dotnet nuget add source -n MonoGameGitHub https://nuget.pkg.github.com/MonoGame/index.json --username USERNAME --password TOKEN
    ```
-3. From the folder with your game's .csproj:
+3. Find the version you want:
    ```
-   dotnet add package MonoGame.Framework.DesktopGL --prerelease
-   dotnet add package MonoGame.Content.Builder.Task --prerelease
+   dotnet package search MonoGame.Framework.DesktopGL --source MonoGameGitHub --prerelease --exact-match
    ```
-4. To install the MonoGame templates:
+   You can also browse them at <https://github.com/orgs/MonoGame/packages?repo_name=MonoGame>.
+4. From the folder with your game's .csproj, install that version:
    ```
-   dotnet new install MonoGame.Templates.CSharp::*-*
+   dotnet add package MonoGame.Framework.DesktopGL --version THE-VERSION
+   dotnet add package MonoGame.Content.Builder.Task --version THE-VERSION
+   ```
+5. To install the matching templates:
+   ```
+   dotnet new install MonoGame.Templates.CSharp::THE-VERSION
    ```
    With that you will be able to use `dotnet new mgdesktopgl -o MyGame`.
 
-You can repeat step 3 and 4 whenever you want to update.
+You can repeat step 3 to 5 whenever you want to update.
 
-You can also install a specific version:
+Pass the version explicitly rather than reaching for `--prerelease`. The develop packages don't share a numbering scheme with the releases on nuget.org, so `--prerelease` can resolve to the latest stable release instead of a develop build and leave you wondering why nothing changed.
 
-```
-dotnet add package MonoGame.Framework.DesktopGL --version 3.8.4.2602-develop
-dotnet add package MonoGame.Content.Builder.Task --version 3.8.4.2602-develop
-dotnet new install MonoGame.Templates.CSharp::3.8.4.2602-develop
-```
+If you want something newer than the last release without running the raw develop code, MonoGame also publishes preview packages to nuget.org under versions like `3.8.5-preview.7`. Those you can install with `--prerelease` from the normal feed, no token needed.
 
 To remove the GitHub source from step 2, you can do:
 
@@ -42,5 +43,6 @@ dotnet nuget remove source MonoGameGitHub
 * [Using the Development Nuget Packages](https://docs.monogame.net/articles/getting_started/using_development_nuget_packages.html)
 * [Working with the NuGet registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry)
 * [Managing your personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-* [dotnet nuget add source](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-list-source)
+* [dotnet nuget add source](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-add-source)
 * [dotnet nuget list source](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-list-source)
+* [dotnet package search](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-package-search)

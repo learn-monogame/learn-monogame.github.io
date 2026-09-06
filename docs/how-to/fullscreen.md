@@ -2,7 +2,7 @@
 
 This guide will give you the code in order to switch between window, borderless and fullscreen modes.
 
-This guide is a follow up to [Get started](./get-started.md).
+This guide is a follow up to [Get started](./get-started/README.md).
 
 Here is some code that can toggle your game's fullscreen mode with borderless as an option.
 
@@ -12,7 +12,6 @@ bool _isBorderless = false;
 int _width = 0;
 int _height = 0;
 GraphicsDeviceManager _graphics;
-GameWindow _window;
 
 public void ToggleFullscreen() {
     bool oldIsFullscreen = _isFullscreen;
@@ -107,7 +106,9 @@ private void ApplyHardwareMode() {
 
 ---
 
-Going fullscreen we preserve the current window size. Then we apply the size of the monitor that the window is currently in. This method handles the current borderless state.
+Going fullscreen we preserve the current window size. Then we apply the size of the primary monitor. This method handles the current borderless state.
+
+`GraphicsAdapter.DefaultAdapter` is always the primary monitor, so a window that was dragged to a second monitor gets that second monitor's fullscreen at the primary's resolution. You can walk `GraphicsAdapter.Adapters` and match against `Window.ClientBounds` if you need the right one.
 
 ```csharp
 private void SetFullscreen() {

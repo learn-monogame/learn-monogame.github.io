@@ -2,7 +2,7 @@
 
 In order to understand shaders from the ground up, I like to start from the most basic setup. In this tutorial, you'll learn how to write your own shader to draw a texture to the screen.
 
-This tutorial builds on top of [Get started](../../how-to/get-started.md).
+This tutorial builds on top of [Get started](../../how-to/get-started/README.md).
 
 The first part of this tutorial will walk you through the project setup without explaining much. Once the project is setup and you can run it, you'll be walked through it line by line to understand how everything works under the hood.
 
@@ -62,7 +62,7 @@ technique SpriteBatch {
 
 ### Content pipeline
 
-Open `Content.mgcb` using the MonoGame Content Builder Editor interface. (Read [Get started](../../how-to/get-started.md) to learn how to get it.) Add both to the content pipeline editor as an existing item:
+Open `Content.mgcb` using the MonoGame Content Builder Editor interface. (Read [Get started](../../how-to/get-started/README.md) to learn how to get it.) Add both to the content pipeline editor as an existing item:
 
 ![Use existing item to add them to the MonoGame pipeline.](./add-existing-item.png)
 
@@ -267,7 +267,7 @@ First things first, get the `width` and `height` values from the viewport. Putti
 If you want to test it out for yourself, you can feed it various world coordinates to see what it outputs:
 
 ```csharp
-Vector2 test = new Vector(10, 20);
+Vector2 test = new Vector2(10, 20);
 Vector2 result = Vector2.Transform(test, view * projection);
 Console.WriteLine(result);
 ```
